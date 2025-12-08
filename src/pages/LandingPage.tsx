@@ -9,7 +9,7 @@ import '../App.css';
 
 function LandingPage() {
   useEffect(() => {
-    document.title = 'Deepiri - AI R&D Collective for Cloud Productivity';
+    document.title = 'Deepiri - AI R&D Collective';
   }, []);
 
   return (
