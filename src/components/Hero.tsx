@@ -6,8 +6,9 @@ function Hero() {
       <div className="container">
         <div className="hero-content">
           <h1 className="hero-title">
-            AI R&D Collective for
-            <span className="gradient-text"> Cloud Productivity</span>
+            <span className="hero-main-title">AI R&D Collective</span>
+            <span className="hero-subtitle-text">focused on</span>
+            <span className="gradient-text">Productivity Platforms and Autonomous Systems</span>
           </h1>
           <p className="hero-description">
             Deepiri is an independent AI research and development group focused on exploring the intersection 

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Deepiri Landing Page - Cloudflare Pages",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 5174",
     "dev:fast": "vite --host 0.0.0.0 --port 5174 --force",
