@@ -69,13 +69,6 @@ function ResearchPage() {
                 </p>
               </div>
               <div className="methodology-item">
-                <h3 className="methodology-title">Collaborative Research</h3>
-                <p className="methodology-text">
-                  We collaborate with academic institutions, industry partners, 
-                  and independent researchers.
-                </p>
-              </div>
-              <div className="methodology-item">
                 <h3 className="methodology-title">Iterative Refinement</h3>
                 <p className="methodology-text">
                   Our research follows an iterative cycle of design, implementation, 
