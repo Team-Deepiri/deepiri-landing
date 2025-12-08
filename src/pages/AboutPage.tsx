@@ -80,10 +80,9 @@ function AboutPage() {
                 </p>
               </div>
               <div className="approach-item">
-                <h3 className="approach-title">Open Collaboration</h3>
+                <h3 className="approach-title">Everyone has Potential</h3>
                 <p className="approach-text">
-                  We believe in sharing knowledge and collaborating with the broader 
-                  AI research community.
+                  We believe that everyone has potential and value upskilling our team.
                 </p>
               </div>
               <div className="approach-item">
