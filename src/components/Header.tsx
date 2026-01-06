@@ -13,7 +13,6 @@ function Header() {
             <a href="/about">About</a>
             <a href="/research">Research</a>
             <a href="/contact">Contact</a>
-            <a href="/schedule" className="btn-schedule">Schedule Interview</a>
             <div className="header-social">
               <a 
                 href="https://github.com/team-deepiri" 

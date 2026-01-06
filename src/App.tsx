@@ -14,7 +14,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/research" element={<ResearchPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/schedule" element={<SchedulePage />} />
+        <Route path="/schedule-an-interview" element={<SchedulePage />} />
       </Routes>
     </Router>
   );

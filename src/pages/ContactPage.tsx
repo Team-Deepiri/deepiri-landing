@@ -82,11 +82,6 @@ function ContactPage() {
                   <li>Industry collaborations</li>
                   <li>General inquiries</li>
                 </ul>
-                <div className="schedule-cta">
-                  <a href="/schedule" className="schedule-link">
-                    Schedule an Interview with Founder →
-                  </a>
-                </div>
               </div>
             </div>
 
