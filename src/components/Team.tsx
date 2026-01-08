@@ -64,9 +64,9 @@ function Team() {
           <div className="universities-grid">
             {universities.map((uni, index) => (
               <div key={index} className="university-logo">
-                <img 
-                  src={uni.logo} 
-                  alt={uni.name}
+                <img
+                  src={uni.logo}
+                  alt={`${uni.name} University Logo`}
                   className="university-img"
                 />
               </div>
