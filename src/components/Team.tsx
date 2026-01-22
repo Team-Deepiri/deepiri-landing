@@ -60,7 +60,7 @@ function Team() {
           </div>
         </div>
         <div className="universities">
-          <p className="universities-label">Team Members from Leading Institutions Worldwide</p>
+          <p className="universities-label">Developers from Leading Institutions Worldwide</p>
           <div className="universities-grid">
             {universities.map((uni, index) => (
               <div key={index} className="university-logo">
@@ -82,4 +82,5 @@ function Team() {
 }
 
 export default Team;
+
 
