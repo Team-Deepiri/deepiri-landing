@@ -24,13 +24,27 @@ function AboutPage() {
             <div className="about-content">
               <h2 className="section-title">Our Mission</h2>
               <p className="section-text">
-                Deepiri is an independent AI research and development group focused on exploring 
-                the intersection of modular microservice architecture, generative intelligence, 
-                and adaptive human and AI interaction.
+               Deepiri is an independent, open source AI research and development collective focused on exploring the 
+               intersection of modular microservice architecture, generative intelligence, and adaptive human and 
+               AI interaction. We believe that the future of AI should be transparent, community-driven, and accessible to all — 
+               which is why everything we build is open source and freely available to developers, researchers, and innovators worldwide.
               </p>
               <p className="section-text">
                 Our research spans media ingestion, automation, digital productivity, and cognitive 
-                computing, with a focus on creating scalable, autonomous, and creative AI-driven frameworks.
+                computing, with a focus on creating scalable, autonomous, and creative AI-driven frameworks that 
+                push the boundaries of what's possible.
+              </p>
+            </div>
+          </section>
+
+          <section className="about-section">
+            <h2 className='section-title'>Our Findings</h2>
+            <div className='about-content'>
+              <p className='section-text'>
+                  Open source is at the heart of everything Deepiri does. Our projects
+                  are publicly available and built with collaboration in mind and we actively welcome contributors from across the globe.
+                  We maintain a transparent development process, publish our findings openly, and engage regularly
+                  with the broader AI and developer community through publications and collaborative initiatives.
               </p>
             </div>
           </section>
