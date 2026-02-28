@@ -42,8 +42,10 @@ function Team() {
         <div className="team-header">
           <h2 className="team-title">Our Team</h2>
           <p className="team-subtitle">
-            A diverse collective of researchers and developers from different backgrounds, who have come together to build unique and creative platforms for AI-driven productivity. Weare planning on releasing our first product within the next year, and are very excited to share our work with the world.
-          </p>
+            A diverse collective of researchers and developers from different backgrounds, who have come together to build unique and creative platforms for AI-driven productivity. 
+            Rather than releasing a product, our focus is on completing tools and pipelines that
+            we will later package for easy accessibility. Our goal is to ensure that by the time they reach users, the experience feels seamless and intuitive.
+            </p>
         </div>
         <div className="team-stats">
           <div className="team-stat">
