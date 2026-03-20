@@ -63,9 +63,9 @@ function ResearchPage() {
                 </p>
               </div>
               <div className="methodology-item">
-                <h3 className="methodology-title">Private Contributions</h3>
+                <h3 className="methodology-title">Public Contributions</h3>
                 <p className="methodology-text">
-                 We are a closed source collective and do not release any of our code publicly.
+                 We are an open source collective, allowing for anyone to contribute to our research and development efforts.
                 </p>
               </div>
               <div className="methodology-item">
