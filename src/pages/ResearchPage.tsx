@@ -80,7 +80,7 @@ function ResearchPage() {
           <section className="research-section">
             <h2 className="section-title">Explore Our Git Repositories</h2>
             <div className="methodology-grid">
-              <a href="https://github.com/Team-Deepiri/diri-platform" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/Team-Deepiri/deepiri-platform" target="_blank" rel="noopener noreferrer">
                 <div className="repository-item">
                   <h3 className="repo-title methodology-title">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -91,14 +91,14 @@ function ResearchPage() {
                     <span>Deepiri Platform</span>
                   </h3>
                   <p className="methodology-text">
-                    The Deepiri Platform is our core open source project, encompassing the foundational 
+                    The Deepiri Platform is our core open source hub, encompassing the foundational 
                     tools, libraries, and frameworks that power our research and development efforts, such as the Cryex and Helox repositories. 
                     It serves as the backbone for all our experimental prototypes and production systems, 
                     enabling us to rapidly iterate and innovate across various domains of AI and cloud productivity.
                   </p>
-              </div>
+                </div>
               </a>
-              <a href="https://github.com/Team-Deepiri/diri-cryex" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/Team-Deepiri/diri-cyrex" target="_blank" rel="noopener noreferrer">
                 <div className="repository-item">
                   <h3 className="repo-title methodology-title">
                     <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -121,7 +121,7 @@ function ResearchPage() {
                     enterprise RAG, and company-specific automation. A flagship capability is Cyrex Guard, which delivers cross-industry 
                     vendor fraud detection through invoice parsing, pricing benchmarks, risk scoring, and an integrated backend/frontend workflow. 
                   </p>
-              </div>
+                </div>
               </a>
               <a href="https://github.com/Team-Deepiri/deepiri-language-intelligence-service" target="_blank" rel="noopener noreferrer">
                 <div className="repository-item">
@@ -140,8 +140,49 @@ function ResearchPage() {
                     particularly for uploaded documents. It provides advanced capabilities for contract document processing, including 
                     text analysis, version comparison when editing documents, structural extraction, and more.
                   </p>
-              </div>
+                </div>
               </a>
+              <a href="https://github.com/Team-Deepiri/deepiri-emotion-desktop" target="_blank" rel="noopener noreferrer">
+                <div className="repository-item">
+                  <h3 className="repo-title methodology-title">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="3" y="4" width="18" height="16" rx="2" stroke="#8A2BE2" strokeWidth="1.5"/>
+                      <path d="M3 8H21" stroke="#8A2BE2" strokeWidth="1.5"/>
+                      
+                      <circle cx="8" cy="14" r="1.5" fill="#8A2BE2"/>
+                      <circle cx="16" cy="14" r="1.5" fill="#8A2BE2"/>
+                      <circle cx="12" cy="12" r="1" fill="#8A2BE2"/>
+                      <path d="M8 14L12 12L16 14" stroke="#8A2BE2" strokeWidth="1" strokeLinecap="round"/>
+                    </svg>
+                    <span>Deepiri Emotion IDE</span>
+                  </h3>
+                  <p className="methodology-text">
+                    The Emotion IDE repository is for our AI-powered integrated development environment focused on enhancing 
+                    developer productivity and creativity. It provides context-aware AI chat and "Apply to file" capabilities, with optional support for Cyrex and Helox backends 
+                    to handle advanced tasks like RAG, pipeline runs, and even API integration.
+                  </p>
+                </div>
+              </a>
+              <a href="https://github.com/Team-Deepiri/deepiri-uqe" target="_blank" rel="noopener noreferrer">
+                <div className="repository-item">
+                  <h3 className="repo-title methodology-title">
+                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <ellipse cx="50" cy="50" rx="40" ry="15" stroke="#6366f1" strokeWidth="3" transform="rotate(45 50 50)" opacity="0.6"/>
+                      <ellipse cx="50" cy="50" rx="40" ry="15" stroke="#a855f7" strokeWidth="3" transform="rotate(-45 50 50)" opacity="0.6"/>
+                      <circle cx="50" cy="50" r="8" fill="#4f46e5">
+                        <animate attributeName="r" values="7;9;7" dur="3s" repeatCount="indefinite" />
+                      </circle>
+                    </svg>
+                    <span>Deepiri Universal Quantum Engine</span>
+                  </h3>
+                  <p className="methodology-text">
+                    The Universal Quantum Engine (UQE) repository is a research-ready quantum experimentation lab for simulating quantum systems
+                    and integrating them with AI. Key features include a pure-NumPy statevector simulator for running 
+                    core algorithms, a quantum bridge that provides quantum-inspired tensors 
+                    and layers for PyTorch-based machine learning, and 3D interactive renderings using Plotly.
+                  </p>
+                </div>
+              </a>  
               <a href="https://github.com/Team-Deepiri/deepiri-prismpipe" target="_blank" rel="noopener noreferrer">
                 <div className="repository-item">
                   <h3 className="repo-title methodology-title">
@@ -165,28 +206,7 @@ function ResearchPage() {
                     inherit knowledge, and self-optimize. Its core features include computation deduplication to reuse shared results, intent-based APIs that replace hardcoded endpoints with NLP planning, 
                     and speculative execution via time-splitting. 
                   </p>
-              </div>
-              </a>
-              <a href="https://github.com/Team-Deepiri/deepiri-emotion-desktop" target="_blank" rel="noopener noreferrer">
-                <div className="repository-item">
-                  <h3 className="repo-title methodology-title">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="3" y="4" width="18" height="16" rx="2" stroke="#8A2BE2" strokeWidth="1.5"/>
-                      <path d="M3 8H21" stroke="#8A2BE2" strokeWidth="1.5"/>
-                      
-                      <circle cx="8" cy="14" r="1.5" fill="#8A2BE2"/>
-                      <circle cx="16" cy="14" r="1.5" fill="#8A2BE2"/>
-                      <circle cx="12" cy="12" r="1" fill="#8A2BE2"/>
-                      <path d="M8 14L12 12L16 14" stroke="#8A2BE2" strokeWidth="1" strokeLinecap="round"/>
-                    </svg>
-                    <span>Deepiri Emotion IDE</span>
-                  </h3>
-                  <p className="methodology-text">
-                    The Emotion IDE repository is for our AI-powered integrated development environment focused on enhancing 
-                    developer productivity and creativity. It provides context-aware AI chat and "Apply to file" capabilities, with optional support for Cyrex and Helox backends 
-                    to handle advanced tasks like RAG, pipeline runs, and even API integration.
-                  </p>
-              </div>
+                </div>
               </a>
               <a href="https://github.com/Team-Deepiri/diri-persola" target="_blank" rel="noopener noreferrer">
                 <div className="repository-item">
@@ -205,7 +225,7 @@ function ResearchPage() {
                     It offers Cyrex integration as it spawns agents into Cyrex and supports multiple models like Ollama, OpenAI, and Claude.
                     The goal is to essentially make "AI that feels".
                   </p>
-              </div>
+                </div>
               </a>
               <a href="https://github.com/Team-Deepiri/diri-helox" target="_blank" rel="noopener noreferrer">
                 <div className="repository-item">
@@ -226,8 +246,8 @@ function ResearchPage() {
                     The Helox repository is for our machine learning and data generation and testing system.
                     It includes tools for synthetic data generation, model training pipelines, and evaluation frameworks.
                   </p>
-              </div>
-              </a>
+                </div>
+              </a>                         
             </div>
           </section>
         </div>
