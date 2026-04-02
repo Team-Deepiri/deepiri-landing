@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   ci:
-    name: 
+    name: Install, Lint, Build, Type-checking
     runs-on: ubuntu-latest
 
     steps:
