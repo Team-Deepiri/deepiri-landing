@@ -91,10 +91,10 @@ function ResearchPage() {
                     <span>Deepiri Platform</span>
                   </h3>
                   <p className="methodology-text">
-                    The Deepiri Platform is our core open source hub, encompassing the foundational 
-                    tools, libraries, and frameworks that power our research and development efforts, such as the Cryex and Helox repositories. 
-                    It serves as the backbone for all our experimental prototypes and production systems, 
-                    enabling us to rapidly iterate and innovate across various domains of AI and cloud productivity.
+                    Deepiri Platform is our open source command center: the foundational stack where we
+                    architect reusable tools, developer frameworks, and production-grade infrastructure.
+                    It is the launchpad that accelerates every major Deepiri initiative, including Cyrex
+                    and Helox.
                   </p>
                 </div>
               </a>
@@ -117,9 +117,10 @@ function ResearchPage() {
                     <span>Deepiri Cyrex</span>
                   </h3>
                   <p className="methodology-text">
-                    Cyrex is our repository for our production-ready AI platform centered on multi-agent orchestration, 
-                    enterprise RAG, and company-specific automation. A flagship capability is Cyrex Guard, which delivers cross-industry 
-                    vendor fraud detection through invoice parsing, pricing benchmarks, risk scoring, and an integrated backend/frontend workflow. 
+                    Cyrex is our production-ready AI platform for multi-agent orchestration, enterprise
+                    RAG, and high-impact automation. Its flagship system, Cyrex Guard, helps organizations
+                    detect vendor fraud with invoice intelligence, pricing benchmarks, risk scoring, and a
+                    full-stack workflow built for real operational teams.
                   </p>
                 </div>
               </a>
@@ -136,9 +137,9 @@ function ResearchPage() {
                     <span>Deepiri Intelligence Service</span>
                   </h3>
                   <p className="methodology-text">
-                    The Intelligence Service repository contains our natural language processing and understanding tools, 
-                    particularly for uploaded documents. It provides advanced capabilities for contract document processing, including 
-                    text analysis, version comparison when editing documents, structural extraction, and more.
+                    Intelligence Service powers our document AI engine for deep language understanding at
+                    scale. From contract analysis and structure extraction to version-aware comparison, this
+                    repository turns complex documents into clear, actionable insight.
                   </p>
                 </div>
               </a>
@@ -157,9 +158,10 @@ function ResearchPage() {
                     <span>Deepiri Emotion IDE</span>
                   </h3>
                   <p className="methodology-text">
-                    The Emotion IDE repository is for our AI-powered integrated development environment focused on enhancing 
-                    developer productivity and creativity. It provides context-aware AI chat and "Apply to file" capabilities, with optional support for Cyrex and Helox backends 
-                    to handle advanced tasks like RAG, pipeline runs, and even API integration.
+                    Emotion IDE is our AI-powered development environment designed to make engineers faster,
+                    sharper, and more creative. With context-aware chat, apply-to-file workflows, and
+                    optional Cyrex and Helox integrations, it bridges daily coding with advanced RAG,
+                    pipeline execution, and API automation.
                   </p>
                 </div>
               </a>
@@ -176,10 +178,10 @@ function ResearchPage() {
                     <span>Deepiri Universal Quantum Engine</span>
                   </h3>
                   <p className="methodology-text">
-                    The Universal Quantum Engine (UQE) repository is a research-ready quantum experimentation lab for simulating quantum systems
-                    and integrating them with AI. Key features include a pure-NumPy statevector simulator for running 
-                    core algorithms, a quantum bridge that provides quantum-inspired tensors 
-                    and layers for PyTorch-based machine learning, and 3D interactive renderings using Plotly.
+                    Universal Quantum Engine (UQE) is our quantum experimentation lab built for serious
+                    AI-forward research. It combines a pure-NumPy statevector simulator, a quantum bridge
+                    for PyTorch workflows, and interactive 3D visualizations to rapidly prototype next-gen
+                    computational ideas.
                   </p>
                 </div>
               </a>  
@@ -202,9 +204,9 @@ function ResearchPage() {
                     <span>Deepiri Prismpipe</span>                    
                   </h3>
                   <p className="methodology-text">
-                    Deepiri Prismpipe is a capability-routed API pipeline that treats requests as "Organic Pipes"—persistent computational organisms that live forever, 
-                    inherit knowledge, and self-optimize. Its core features include computation deduplication to reuse shared results, intent-based APIs that replace hardcoded endpoints with NLP planning, 
-                    and speculative execution via time-splitting. 
+                    Deepiri Prismpipe reimagines APIs as capability-routed, self-improving computation
+                    pipelines. With persistent "Organic Pipes," result deduplication, intent-driven planning,
+                    and speculative execution, it delivers faster systems that get smarter with every run.
                   </p>
                 </div>
               </a>
@@ -220,10 +222,10 @@ function ResearchPage() {
                     <span>Deepiri Persola</span>
                   </h3>
                   <p className="methodology-text">
-                    The Persola repository is our framework for adding personality to AI agents, providing them with 
-                    additional parameters fine-tuned across 4 panels, creativity, personality, thinking, and reliability.
-                    It offers Cyrex integration as it spawns agents into Cyrex and supports multiple models like Ollama, OpenAI, and Claude.
-                    The goal is to essentially make "AI that feels".
+                    Persola is our personality framework for building AI agents that are not just capable,
+                    but memorable. It tunes behavior across creativity, personality, reasoning, and
+                    reliability, supports multi-model backends, and integrates directly with Cyrex to deploy
+                    agents that feel intentional and human-centered.
                   </p>
                 </div>
               </a>
@@ -243,8 +245,9 @@ function ResearchPage() {
                     <span>Deepiri Helox</span>
                   </h3>
                   <p className="methodology-text">
-                    The Helox repository is for our machine learning and data generation and testing system.
-                    It includes tools for synthetic data generation, model training pipelines, and evaluation frameworks.
+                    Helox is our machine learning engine for data generation, model training, and robust
+                    evaluation. It gives teams a practical path from synthetic data to production-ready
+                    models with repeatable pipelines and rigorous testing.
                   </p>
                 </div>
               </a>                         
