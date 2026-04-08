@@ -5,7 +5,7 @@ import ResearchModal from '../components/ResearchModal';
 import { researchAreas } from '../data/researchData';
 import './ResearchPage.css';
 
-const badges = ['Infrastructure', 'AI/ML', 'HCI', 'Platform', 'Autonomy', 'Media'];
+const badges = ['Infrastructure', 'AI/ML', 'HCI', 'Platform', 'Autonomy', 'Media', 'Ethics', 'Tools', 'Data'];
 
 function ResearchPage() {
   const [selectedResearch, setSelectedResearch] = useState<number | null>(null);
