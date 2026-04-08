@@ -135,5 +135,64 @@ export const researchAreas: ResearchArea[] = [
       ],
     },
   },
+  {
+    title: 'AI Safety & Ethics',
+    description: 'Ensuring our AI systems operate ethically and align with human values through rigorous safety research.',
+     details: {
+      overview: 'We are committed to researching and implementing safety measures that ensure our AI systems operate ethically and align with human values. This includes developing frameworks for responsible AI deployment, ongoing monitoring, and mechanisms for bias detection and mitigation.',
+      keyAreas: [
+        'Ethical AI design principles and frameworks',
+        'Bias detection and mitigation techniques',
+        'Transparency and explainability in AI systems',
+        'Responsible AI governance and oversight',
+        'Ongoing monitoring and feedback mechanisms',
+      ],
+      applications: [
+        'Ethical AI design and implementation',
+        'Bias auditing and mitigation tools',
+        'Explainable AI systems',
+        'Responsible AI governance frameworks',
+        'Continuous monitoring and feedback loops',
+      ],
+    },
+  },
+  {
+    title: 'AI-Driven Research Tools',
+    description: 'Developing AI-powered tools that enhance research productivity and enable high-level problem-solving.',
+     details: {
+      overview: 'We develop AI-powered tools that enhance research productivity, enabling researchers to focus on high-level problem-solving while automating routine tasks. Our tools leverage AI for data analysis, intelligent search, and collaborative research platforms.',
+      keyAreas: [
+        'Automated data analysis and visualization',
+        'Intelligent search and retrieval systems',
+        'Collaborative research platforms and knowledge sharing',
+        'Predictive modeling and hypothesis generation tools',
+      ],
+      applications: [
+        'Automated data analysis and visualization',
+        'Intelligent search and retrieval systems',
+        'Collaborative research platforms and knowledge sharing',
+        'Predictive modeling and hypothesis generation tools',
+      ],
+    },
+  },
+  {
+    title: 'Data Pipelines & Observability',
+    description: 'Researching robust data pipelines and observability solutions to ensure data quality and system performance.',
+     details: {
+      overview: 'We research and develop robust data pipelines and observability solutions to ensure data quality, compliance, and system performance.',
+      keyAreas: [
+        'Data pipeline design and optimization',
+        'Real-time monitoring and alerting',
+        'Data quality assurance',
+        'Compliance and governance',
+      ],
+      applications: [
+        'Automated data analysis and visualization',
+        'Intelligent search and retrieval systems',
+        'Collaborative research platforms and knowledge sharing',
+        'Predictive modeling and hypothesis generation tools',
+      ],
+    },
+  },
 ];
 

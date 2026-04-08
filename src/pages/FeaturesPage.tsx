@@ -66,6 +66,36 @@ const researchDomains = [
           'Content understanding systems',
         ],
       },
+      {
+        title: 'AI Safety & Ethics',
+        description: 'We are committed to researching and implementing safety measures that ensure our AI systems operate ethically and align with human values. This includes developing frameworks for responsible AI deployment and ongoing monitoring.',
+        topics: [
+          'Ethical AI design',
+          'Bias detection and mitigation',
+          'Transparency and explainability',
+          'Responsible AI governance',
+        ],
+      },
+      {
+        title: 'AI-Driven Research Tools',
+        description: 'We develop AI-powered tools that enhance research productivity, enabling researchers to focus on high-level problem-solving while automating routine tasks.',
+        topics: [
+          'Automated data analysis',
+          'Intelligent search and retrieval',
+          'Collaborative research platforms',
+          'Predictive modeling tools',
+        ],
+      },
+      {
+        title: 'Data Pipelines & Observability',
+        description: 'We research and develop robust data pipelines and observability solutions to ensure data quality, compliance, and system performance.',
+        topics: [
+          'Data pipeline design and optimization',
+          'Real-time monitoring and alerting',
+          'Data quality assurance',
+          'Compliance and governance',
+        ],
+      }
     ],
   },
 ];
