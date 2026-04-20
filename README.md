@@ -2,7 +2,7 @@
 
 A modern, responsive landing page for Deepiri, optimized for Cloudflare Pages deployment.
 
-## 🚀 Features
+## Features
 
 - **Modern Design**: Clean, professional UI with gradient accents
 - **Fully Responsive**: Works seamlessly on desktop, tablet, and mobile
@@ -10,7 +10,7 @@ A modern, responsive landing page for Deepiri, optimized for Cloudflare Pages de
 - **React + TypeScript**: Built with React 18 and TypeScript for type safety
 - **Vite**: Lightning-fast build tool and dev server
 
-## 📦 Tech Stack
+## Tech Stack
 
 - React 18
 - TypeScript
@@ -18,7 +18,7 @@ A modern, responsive landing page for Deepiri, optimized for Cloudflare Pages de
 - React Router DOM
 - CSS3 (no external CSS frameworks)
 
-## 🛠️ Development
+## Development
 
 ### Prerequisites
 
@@ -52,7 +52,7 @@ The production build will be in the `dist/` directory.
 npm run preview
 ```
 
-## 🌐 Deployment to Cloudflare Pages
+## Deployment to Cloudflare Pages
 
 ### Option 1: Connect via Git (Recommended)
 
@@ -98,7 +98,7 @@ npm run preview
 2. Go to Cloudflare Dashboard → Pages → Create a project → Upload assets
 3. Upload the contents of the `dist/` directory
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 deepiri-landing/
@@ -123,7 +123,7 @@ deepiri-landing/
 └── README.md            # This file
 ```
 
-## 🎨 Customization
+## Customization
 
 ### Colors
 
@@ -145,7 +145,7 @@ Edit CSS variables in `src/index.css`:
 - **Features**: Edit the `features` array in `src/components/Features.tsx`
 - **Footer Links**: Edit `src/components/Footer.tsx`
 
-## 📝 License
+## License
 
 This project is part of the Deepiri platform.
 
