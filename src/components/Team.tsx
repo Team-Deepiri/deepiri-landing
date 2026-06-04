@@ -16,6 +16,8 @@ import northeasternLogo from '../assets/NorthEasternUniversity_RGB_seal_R.png';
 import ucRiversideLogo from '../assets/UC_Riverside_seal.svg.png';
 import utAustinLogo from '../assets/University_of_Texas_at_Austin_seal.svg.png';
 
+import LogoCarousel from '../components/LogoCarousel';
+
 const universities = [
   { name: 'Yale', logo: yaleLogo },
   { name: 'Carnegie Mellon', logo: cmuLogo },
@@ -61,6 +63,7 @@ function Team() {
             <div className="team-stat-label">Collaboration</div>
           </div>
         </div>
+        <LogoCarousel />
         <div className="universities">
           <p className="universities-label">Developers from Leading Institutions Worldwide</p>
           <div className="universities-grid">
