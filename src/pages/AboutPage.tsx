@@ -62,6 +62,12 @@ function AboutPage() {
                 systems, and human-computer interaction, enabling us to tackle complex research 
                 challenges at the intersection of technology and productivity.
               </p>
+              <p className="section-text">
+                Alumni and current members have gone on to engineering and research roles at
+                companies including Google, AWS, IBM, Salesforce, and Progressive, bringing
+                the same rigor they practiced on open source research into production systems
+                at scale.
+              </p>
             </div>
             <div className="team-links">
               <a 

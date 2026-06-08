@@ -4,6 +4,10 @@
   position: relative;
 }
 
+.team .carousel-wrapper {
+  --carousel-fade: var(--bg-light);
+}
+
 .team-header {
   text-align: center;
   margin-bottom: 3rem;
