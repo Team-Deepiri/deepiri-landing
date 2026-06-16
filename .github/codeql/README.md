@@ -30,94 +30,42 @@ Runs scans when pull requests target `main` or `dev`, and when commits are pushe
 ### `permissions`
 
 ```yaml
-permissions:
-  actions: read
-  contents: read
-  security-events: write
+# CodeQL for deepiri-landing
+
+This folder contains the CodeQL configuration and a short guide for running scans against this repository.
+
+Files
+- `.github/workflows/codeql.yml`: GitHub Actions workflow that initializes and runs CodeQL.
+- `.github/codeql/codeql-config.yml`: CodeQL configuration (path excludes).
+
+How the workflow runs
+- The workflow triggers on `push` and `pull_request` targeting `main` and `dev`.
+- The action initializes CodeQL for `javascript-typescript` and runs analysis.
+
+Quick test options
+
+1) Trigger via GitHub (recommended)
+- Push a branch or open a PR against `main` or `dev`. The workflow will run automatically and show results in the Actions tab and Security alerts.
+
+2) Enable manual runs
+- If you want to run the workflow manually from the Actions UI, add `workflow_dispatch` to the `on:` section of `.github/workflows/codeql.yml`.
+
+3) Run CodeQL locally (Linux/macOS)
+
+```bash
+# Download CodeQL CLI (example)
+curl -sSL https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql-linux64.zip -o codeql.zip
+unzip codeql.zip -d codeql
+export PATH="$PWD/codeql:$PATH"
+codeql version
+
+# Create a database and analyze (JavaScript/TypeScript)
+codeql database create codeql-db --language=javascript --source-root=.
+codeql database analyze codeql-db --format=sarif-latest --output=codeql-results.sarif
 ```
 
-Uses least-privilege permissions. `security-events: write` is required so CodeQL can upload findings.
-
-### Language setup
-
-```yaml
-with:
-  languages: javascript-typescript
+Notes and recommendations
+- The workflow currently uses `languages: javascript-typescript`, which matches this TypeScript React repo.
+- `.github/codeql/codeql-config.yml` excludes common build and vendor paths (node_modules, dist, build, coverage, logs, *.min.js) to reduce noise.
+- The workflow sets `security-events: write` (required) and `fetch-depth: 0` for checkout (useful for analysis).
 ```
-
-This repository is a Vite React app built with TypeScript, so CodeQL is configured to analyze JavaScript and TypeScript.
-
-### Checkout step
-
-```yaml
-with:
-  fetch-depth: 0
-```
-
-- `fetch-depth: 0` keeps full git history, which is a safe default for analysis and troubleshooting.
-
-### Initialize CodeQL
-
-```yaml
-uses: github/codeql-action/init@v3
-with:
-  config-file: ./.github/codeql/codeql-config.yml
-```
-
-Starts the CodeQL engine and loads the config file in this folder.
-
-### Analyze
-
-```yaml
-uses: github/codeql-action/analyze@v3
-```
-
-Executes the CodeQL queries and uploads the results to GitHub Security.
-
-## Config breakdown (`.github/codeql/codeql-config.yml`)
-
-### `paths-ignore`
-
-Generated, build, and runtime artifact paths are excluded to reduce noise and keep scans focused on source code:
-
-```yaml
-paths-ignore:
-  - '**/node_modules/**'
-  - '**/dist/**'
-  - '**/dist-ssr/**'
-  - '**/build/**'
-  - '**/coverage/**'
-  - '**/logs/**'
-  - '**/*.min.js'
-```
-
-## Best practices
-
-1. Keep trigger scope intentional.
-   Use branch filters such as `main` and `dev` to control scan cost and noise.
-2. Keep language scope explicit.
-   Only include languages that are actually used in this repository.
-3. Exclude generated and vendor artifacts.
-   Keep dependencies, build outputs, caches, logs, and minified assets out of CodeQL analysis.
-4. Use stable action versions.
-   `@v3` is the current stable major for the CodeQL actions used here.
-5. Review alerts regularly.
-   Triage high-priority findings first and suppress only with documented reasoning.
-
-## Maintenance examples
-
-### Add another generated folder
-
-If the build process introduces a new generated directory, add it to `paths-ignore`:
-
-```yaml
-- '**/generated/**'
-```
-
-### Keep the language list aligned with the repo
-
-If the repository adds another supported source language later, update the workflow `languages` setting accordingly.
-
-### Keep ignore rules focused on this project
-
-The current ignore list already covers the main output folders for this repo, including `dist` and `dist-ssr`. Add only project-specific build artifacts that are actually present in this checkout.
