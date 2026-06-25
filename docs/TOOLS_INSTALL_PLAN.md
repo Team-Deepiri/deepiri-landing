@@ -27,14 +27,18 @@ deepiri.com
 ├── /tools/:slug        ← per-tool install page
 └── /research           ← existing page + Install CTAs → /tools/:slug
 
-Per-tool GitHub repos
-├── scripts/install.sh  ← terminal install (curl | bash)
+Some tool repos
+├── scripts/install.sh  ← curl | bash one-liner (subset only — see Phase 2A)
 └── GitHub Releases     ← desktop installers (DMG, MSI, AppImage, etc.)
+
+Most terminal tools
+└── Landing digital terminal UI ← show real commands (setup.sh, poetry, docker, etc.)
 ```
 
 ### v1 hosting strategy
 
-- **Terminal installs:** `raw.githubusercontent.com/Team-Deepiri/{repo}/main/scripts/install.sh`
+- **curl | bash installs (Phase 2A only):** `raw.githubusercontent.com/Team-Deepiri/{repo}/main/scripts/install.sh` — or existing root `install.sh` (polylogue, wooven)
+- **Command-based installs (Phase 2B):** no new scripts in those repos — landing renders a styled **digital terminal** with copy-paste steps from each repo’s README / existing `setup.sh`
 - **Desktop downloads:** `github.com/Team-Deepiri/{repo}/releases/latest/download/{asset}`
 - **No Cloudflare Worker required for v1** — optional later for pretty URLs (`install.deepiri.com/emotion/mac`) and download analytics
 
@@ -89,9 +93,11 @@ export interface ToolEntry {
   installMode: InstallMode;
   tags: string[];
   terminal?: {
-    oneLiner: string;
-    curlScript?: string;
-    pipPackage?: string;
+    /** "curl" = one-liner install.sh pipe; "commands" = digital terminal with step list */
+    type: "curl" | "commands";
+    oneLiner?: string;           // curl | bash (type === "curl")
+    curlScript?: string;         // raw.githubusercontent.com/.../install.sh
+    commands?: string[];         // lines shown in digital terminal (type === "commands")
     prerequisites?: string[];
     verifyCommand?: string;
   };
@@ -107,7 +113,9 @@ export interface ToolEntry {
 
 ### UI components
 
-- **TerminalInstallBlock** — OS tabs (macOS / Linux / Windows), copy button, prerequisites, expandable “Advanced” manual steps
+- **TerminalInstallBlock** — two modes:
+  - **`curl` mode:** prominent `curl | bash` one-liner + copy button
+  - **`commands` mode:** styled **digital terminal** (monospace, prompt prefix, dark panel) listing the exact commands to run — e.g. `git clone`, `./setup.sh`, `poetry install`, `docker compose up`. User copies each block; no new `install.sh` in those repos
 - **DesktopDownloadBlock** — DMG / AppImage+deb / MSI buttons; show “Coming soon” when `comingSoon: true` until GH Release exists
 - **ToolCard** — used on hub + optionally research page
 
@@ -115,7 +123,7 @@ export interface ToolEntry {
 
 ## All 25 tools — install modes & repo links
 
-Jason: you own the **landing pages** for all tools below. You will also coordinate (or open PRs in) the per-repo install scripts and release pipelines listed in **Repo work**.
+Jason: you own the **landing pages** for all tools below. For terminal tools, most work is **landing-only** (digital terminal UI). Only the repos in **Phase 2A** need `install.sh` (or already have one). Phase 3 desktop release pipelines are separate PRs in those desktop repos.
 
 | # | Tool | Slug | Mode | GitHub repo |
 |---|------|------|------|-------------|
@@ -157,34 +165,54 @@ Jason: you own the **landing pages** for all tools below. You will also coordina
 |------|-----|------------|
 | deepiri-landing | https://github.com/Team-Deepiri/deepiri-landing | Full UI: `/tools`, `/tools/:slug`, catalog, Research CTAs |
 
-### Phase 2 — Terminal install scripts (parallel PRs per repo)
+### Phase 2 — Terminal installs
 
-Add `scripts/install.sh` (and `scripts/install.ps1` on Windows where needed). Standard one-liner on landing:
+**Important:** Jason is **not** adding `install.sh` to every repo. Phase 2 splits into two tracks.
+
+#### Phase 2A — `curl | bash` install scripts (repo PRs only for this list)
+
+Add or wire `scripts/install.sh` in **these repos only**. Landing uses `terminal.type: "curl"`.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Team-Deepiri/{repo}/main/scripts/install.sh | bash
 ```
 
-| Repo | URL | Notes |
-|------|-----|-------|
-| diri-cyrex | https://github.com/Team-Deepiri/diri-cyrex | Docker Compose + local poetry dev |
-| deepiri-platform | https://github.com/Team-Deepiri/deepiri-platform | Helox lives in `diri-helox` submodule |
-| diri-agent-toolbox | https://github.com/Team-Deepiri/diri-agent-toolbox | pip / poetry |
-| deepiri-training-orchestrator | https://github.com/Team-Deepiri/deepiri-training-orchestrator | pip install |
-| deepiri-dataset-processor | https://github.com/Team-Deepiri/deepiri-dataset-processor | poetry |
-| deepiri-memorymesh | https://github.com/Team-Deepiri/deepiri-memorymesh | pip install memorymesh |
-| deepiri-gpu-utils | https://github.com/Team-Deepiri/deepiri-gpu-utils | pip install |
-| deepiri-polylogue | https://github.com/Team-Deepiri/deepiri-polylogue | **Already has** root `install.sh` — link to it |
-| deepiri-prismpipe | https://github.com/Team-Deepiri/deepiri-prismpipe | poetry / pip |
-| deepiri-mudspeed | https://github.com/Team-Deepiri/deepiri-mudspeed | wrap existing `.setup.sh` |
-| deepiri-topolsea | https://github.com/Team-Deepiri/deepiri-topolsea | Rust + Python (cargo + poetry) |
-| deepiri-uqe | https://github.com/Team-Deepiri/deepiri-uqe | poetry / pip |
-| diri-agent-guardrails | https://github.com/Team-Deepiri/diri-agent-guardrails | pip install |
-| deepiri-aarflingo | https://github.com/Team-Deepiri/deepiri-aarflingo | wrap `setup.sh` |
-| deepiri-wooven | https://github.com/Team-Deepiri/deepiri-wooven | **Already has** root `install.sh` — link to it |
-| deepiri-tombstone | https://github.com/Team-Deepiri/deepiri-tombstone | wrap `setup.sh` + make |
-| deepiri-zepgpu | https://github.com/Team-Deepiri/deepiri-zepgpu | poetry + docker compose |
-| deepiri-ollama-utils | https://github.com/Team-Deepiri/deepiri-ollama-utils | install.sh + wheel/zip on Releases |
+| Tool | Repo | URL | Notes |
+|------|------|-----|-------|
+| Platform | deepiri-platform | https://github.com/Team-Deepiri/deepiri-platform | Add `scripts/install.sh` (Docker Compose bootstrap) |
+| Agent Toolbox | diri-agent-toolbox | https://github.com/Team-Deepiri/diri-agent-toolbox | Add `scripts/install.sh` |
+| Prismpipe | deepiri-prismpipe | https://github.com/Team-Deepiri/deepiri-prismpipe | Add `scripts/install.sh` |
+| GPU Utils | deepiri-gpu-utils | https://github.com/Team-Deepiri/deepiri-gpu-utils | Add `scripts/install.sh` |
+| Ollama Utils | deepiri-ollama-utils | https://github.com/Team-Deepiri/deepiri-ollama-utils | Add `scripts/install.sh` + packaged wheel/zip on Releases |
+| Agent Guardrails | diri-agent-guardrails | https://github.com/Team-Deepiri/diri-agent-guardrails | Add `scripts/install.sh` |
+| Wooven | deepiri-wooven | https://github.com/Team-Deepiri/deepiri-wooven | **Already has** root `install.sh` — link to it |
+| MemoryMesh | deepiri-memorymesh | https://github.com/Team-Deepiri/deepiri-memorymesh | Add `scripts/install.sh` |
+| Dataset Processor | deepiri-dataset-processor | https://github.com/Team-Deepiri/deepiri-dataset-processor | Add `scripts/install.sh` |
+| Training Orchestrator | deepiri-training-orchestrator | https://github.com/Team-Deepiri/deepiri-training-orchestrator | Add `scripts/install.sh` |
+| Polylogue | deepiri-polylogue | https://github.com/Team-Deepiri/deepiri-polylogue | **Already has** root `install.sh` — link to it |
+
+#### Phase 2B — Digital terminal on landing only (no new install.sh)
+
+For these tools, **do not add `install.sh`**. Build the **digital terminal UI** on the landing page with the real setup commands from each repo’s README or existing scripts. Use `terminal.type: "commands"` in `toolsCatalog.ts`.
+
+| Tool | Slug | Repo | Commands to show in digital terminal |
+|------|------|------|--------------------------------------|
+| Cyrex | `cyrex` | https://github.com/Team-Deepiri/diri-cyrex | Clone platform or cyrex → `docker compose` up AI stack, or `poetry install` for local dev |
+| Helox | `helox` | https://github.com/Team-Deepiri/deepiri-platform (`diri-helox`) | `git submodule update --init diri-helox` → `cd diri-helox` → `poetry install` |
+| Mudspeed | `mudspeed` | https://github.com/Team-Deepiri/deepiri-mudspeed | `git clone` → `bash .setup.sh` → `bash .train.sh` |
+| Topolsea | `topolsea` | https://github.com/Team-Deepiri/deepiri-topolsea | `git clone` → `cargo build --release` → `poetry install` |
+| UQE | `uqe` | https://github.com/Team-Deepiri/deepiri-uqe | `git clone` → `poetry install` (or `pip install -r requirements.txt`) |
+| Aarflingo | `aarflingo` | https://github.com/Team-Deepiri/deepiri-aarflingo | `git clone` → `./setup.sh --run` |
+| Tombstone | `tombstone` | https://github.com/Team-Deepiri/deepiri-tombstone | `git clone` → `./setup.sh` (builds + Ollama Docker + model pull) |
+| ZepGPU | `zepgpu` | https://github.com/Team-Deepiri/deepiri-zepgpu | `git clone` → `poetry install` → `cd docker && docker-compose up -d` |
+| Emotion (TUI) | `emotion` | https://github.com/Team-Deepiri/deepiri-emotion-desktop | `git clone` → `npm install` → `npm run cli` (desktop = Phase 3 downloads) |
+| Egottol | `egottol` | https://github.com/Team-Deepiri/deepiri-egottol | `git clone` → `./setup.sh` or `poetry install` + `cmake -B build` + `poetry run python -m egottol.ui.main` |
+
+**Digital terminal UX requirements (Phase 2B):**
+- Dark panel, monospace font, `$` prompt prefix per line
+- Copy-all and copy-per-block buttons
+- Optional OS tabs if macOS vs Linux commands differ
+- Pull command text from each repo README — accuracy over uniformity
 
 ### Phase 3 — Desktop release pipelines (parallel PRs per repo)
 
@@ -215,9 +243,10 @@ curl -fsSL https://raw.githubusercontent.com/Team-Deepiri/{repo}/main/scripts/in
 5. Match existing CSS patterns (`ResearchPage.css`, `Header.css`, etc.)
 6. Open PR → `dev`
 
-### Phase 2 — Terminal scripts
+### Phase 2 — Terminal installs
 
-Open separate PRs in each Phase 2 repo. Priority: tools that already have `install.sh` (polylogue, wooven) → simple pip packages → platform-heavy (cyrex, helox, tombstone).
+- **2A (11 repos):** open PRs only for the install-script list above; landing shows `curl | bash`
+- **2B (10 tools):** landing-only — digital terminal with existing setup commands; **no repo changes** unless README is wrong
 
 ### Phase 3 — Desktop releases
 
@@ -237,10 +266,9 @@ Each `/tools/:slug` page should include:
 2. **GitHub link** — `https://github.com/{repo}`
 3. **Terminal section** (if `terminal` or `both`):
    - Prerequisites
-   - One-line `curl | bash`
-   - Copy button
-   - Expandable manual install
-   - Verify command (e.g. `deepiri-gpu doctor`, `fuselk doctor`)
+   - **curl mode:** one-line `curl | bash` + copy button
+   - **commands mode:** digital terminal with step-by-step commands + copy buttons
+   - Verify command where applicable (e.g. `deepiri-gpu doctor`, `./deepiri-tombstone ping`)
 4. **Desktop section** (if `desktop` or `both`):
    - macOS / Linux / Windows download buttons
    - “Coming soon” state until Release exists
@@ -271,8 +299,8 @@ Optional v1.5: build script that calls `api.github.com/repos/.../releases/latest
 | **Calliope desktop** | Docker-first today (Postgres + Ollama). Desktop installer = Electron/Tauri shell + Docker prerequisite, or slim local mode? |
 | **Cyrex / Helox** | Platform services — pages should lead with Docker Compose from `deepiri-platform`, not imply a single binary |
 | **Ollama Utils** | Package as wheel/zip on GitHub Releases; landing links direct download + pip/git fallback |
-| **Topolsea** | Rust toolchain in install script; consider publishing wheels later |
-| **PyPI** | Many packages are git-only today — v1 uses curl scripts; PyPI is a later convenience |
+| **Topolsea** | Landing shows `cargo` + `poetry` commands; no install.sh in v1 |
+| **PyPI** | Phase 2A curl scripts may wrap pip; Phase 2B shows raw README commands |
 
 ---
 
@@ -282,7 +310,8 @@ Optional v1.5: build script that calls `api.github.com/repos/.../releases/latest
 - [ ] Every tool has `/tools/:slug` with accurate terminal instructions
 - [ ] Research project cards link to install pages
 - [ ] Desktop tools show download buttons (or “Coming soon”) per OS
-- [ ] Terminal installs documented via `curl | bash` or existing `install.sh`
+- [ ] Phase 2A tools: `curl | bash` one-liner wired to install.sh
+- [ ] Phase 2B tools: digital terminal shows accurate README/setup.sh commands (no new install.sh)
 - [ ] PR merges to `dev`; Cloudflare Pages preview works on PR
 - [ ] No Cloudflare Worker required for v1 launch
 
