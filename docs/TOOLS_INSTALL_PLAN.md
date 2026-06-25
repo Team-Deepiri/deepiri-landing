@@ -159,41 +159,66 @@ Jason: you own the **landing pages** for all tools below. For terminal tools, mo
 
 ## Repos you will touch (by phase)
 
-### Phase 1 — Landing only (start here)
+### Phase 1 — Landing UI for every tool (start here)
 
 | Repo | URL | What to do |
 |------|-----|------------|
 | deepiri-landing | https://github.com/Team-Deepiri/deepiri-landing | Full UI: `/tools`, `/tools/:slug`, catalog, Research CTAs |
 
+**You must build landing components for all 25 tools** — not just the hub. Each tool gets a working `/tools/:slug` page assembled from shared components + its catalog entry:
+
+| Component | Scope |
+|-----------|--------|
+| `ToolsHub.tsx` | Grid listing all 25 tools |
+| `ToolInstallPage.tsx` | Dynamic page driven by `slug` from `toolsCatalog.ts` |
+| `ToolCard.tsx` | Card used on hub (and optionally research) |
+| `TerminalInstallBlock.tsx` | Per-tool: curl mode **or** digital-terminal mode |
+| `DesktopDownloadBlock.tsx` | Per-tool: download buttons where `installMode` includes desktop |
+| `toolsCatalog.ts` | **One entry per tool** — name, tagline, repo link, terminal commands, desktop assets |
+
+There is no shortcut of “only building a few pages.” Every slug in the catalog must render a complete install experience when you visit `/tools/{slug}`.
+
 ### Phase 2 — Terminal installs
 
 **Important:** Jason is **not** adding `install.sh` to every repo. Phase 2 splits into two tracks.
 
-#### Phase 2A — `curl | bash` install scripts (repo PRs only for this list)
+#### Phase 2A — You must **create** `install.sh` in these repos (+ landing curl UI)
 
-Add or wire `scripts/install.sh` in **these repos only**. Landing uses `terminal.type: "curl"`.
+For **9 repos below**, open a PR in that repo and **author a real `scripts/install.sh`** (idempotent, `--help`, detects OS, installs deps, verifies install). Do not skip this — the landing `curl | bash` block is useless until the script exists on `main`.
+
+Wooven and Polylogue already have root `install.sh` — point the landing curl URL at those existing files (or add `scripts/install.sh` that delegates to them).
+
+After each script merges, wire the matching tool entry in `toolsCatalog.ts` and confirm `TerminalInstallBlock` (curl mode) on that tool’s landing page.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Team-Deepiri/{repo}/main/scripts/install.sh | bash
 ```
 
-| Tool | Repo | URL | Notes |
-|------|------|-----|-------|
-| Platform | deepiri-platform | https://github.com/Team-Deepiri/deepiri-platform | Add `scripts/install.sh` (Docker Compose bootstrap) |
-| Agent Toolbox | diri-agent-toolbox | https://github.com/Team-Deepiri/diri-agent-toolbox | Add `scripts/install.sh` |
-| Prismpipe | deepiri-prismpipe | https://github.com/Team-Deepiri/deepiri-prismpipe | Add `scripts/install.sh` |
-| GPU Utils | deepiri-gpu-utils | https://github.com/Team-Deepiri/deepiri-gpu-utils | Add `scripts/install.sh` |
-| Ollama Utils | deepiri-ollama-utils | https://github.com/Team-Deepiri/deepiri-ollama-utils | Add `scripts/install.sh` + packaged wheel/zip on Releases |
-| Agent Guardrails | diri-agent-guardrails | https://github.com/Team-Deepiri/diri-agent-guardrails | Add `scripts/install.sh` |
-| Wooven | deepiri-wooven | https://github.com/Team-Deepiri/deepiri-wooven | **Already has** root `install.sh` — link to it |
-| MemoryMesh | deepiri-memorymesh | https://github.com/Team-Deepiri/deepiri-memorymesh | Add `scripts/install.sh` |
-| Dataset Processor | deepiri-dataset-processor | https://github.com/Team-Deepiri/deepiri-dataset-processor | Add `scripts/install.sh` |
-| Training Orchestrator | deepiri-training-orchestrator | https://github.com/Team-Deepiri/deepiri-training-orchestrator | Add `scripts/install.sh` |
-| Polylogue | deepiri-polylogue | https://github.com/Team-Deepiri/deepiri-polylogue | **Already has** root `install.sh` — link to it |
+| Tool | Repo | URL | **Your action — create the script** |
+|------|------|-----|-------------------------------------|
+| Platform | deepiri-platform | https://github.com/Team-Deepiri/deepiri-platform | **Create** `scripts/install.sh` (Docker Compose bootstrap) |
+| Agent Toolbox | diri-agent-toolbox | https://github.com/Team-Deepiri/diri-agent-toolbox | **Create** `scripts/install.sh` |
+| Prismpipe | deepiri-prismpipe | https://github.com/Team-Deepiri/deepiri-prismpipe | **Create** `scripts/install.sh` |
+| GPU Utils | deepiri-gpu-utils | https://github.com/Team-Deepiri/deepiri-gpu-utils | **Create** `scripts/install.sh` |
+| Ollama Utils | deepiri-ollama-utils | https://github.com/Team-Deepiri/deepiri-ollama-utils | **Create** `scripts/install.sh` + attach wheel/zip to GitHub Release |
+| Agent Guardrails | diri-agent-guardrails | https://github.com/Team-Deepiri/diri-agent-guardrails | **Create** `scripts/install.sh` |
+| Wooven | deepiri-wooven | https://github.com/Team-Deepiri/deepiri-wooven | Script exists — **wire landing** to root `install.sh` |
+| MemoryMesh | deepiri-memorymesh | https://github.com/Team-Deepiri/deepiri-memorymesh | **Create** `scripts/install.sh` |
+| Dataset Processor | deepiri-dataset-processor | https://github.com/Team-Deepiri/deepiri-dataset-processor | **Create** `scripts/install.sh` |
+| Training Orchestrator | deepiri-training-orchestrator | https://github.com/Team-Deepiri/deepiri-training-orchestrator | **Create** `scripts/install.sh` |
+| Polylogue | deepiri-polylogue | https://github.com/Team-Deepiri/deepiri-polylogue | Script exists — **wire landing** to root `install.sh` |
+
+**`install.sh` checklist (each new script):**
+- [ ] `set -euo pipefail`, `--help` / `--dry-run` flags
+- [ ] Checks Python/poetry/pip/docker prerequisites with clear errors
+- [ ] Installs the package (pip, poetry, or venv)
+- [ ] Prints a verify command at the end (e.g. `deepiri-gpu detect --json`)
+- [ ] Tested locally on Linux; document macOS gaps in script comments if any
+- [ ] Separate PR merged in that repo **before** landing curl URL goes live
 
 #### Phase 2B — Digital terminal on landing only (no new install.sh)
 
-For these tools, **do not add `install.sh`**. Build the **digital terminal UI** on the landing page with the real setup commands from each repo’s README or existing scripts. Use `terminal.type: "commands"` in `toolsCatalog.ts`.
+For these tools, **do not add `install.sh`**. Instead, **create the landing page entry + digital terminal component content** for each tool — populate `toolsCatalog.ts` with the exact command lines and render them via `TerminalInstallBlock` (`terminal.type: "commands"`).
 
 | Tool | Slug | Repo | Commands to show in digital terminal |
 |------|------|------|--------------------------------------|
@@ -237,16 +262,16 @@ For these tools, **do not add `install.sh`**. Build the **digital terminal UI** 
 ### Phase 1 — Landing UX ← **Jason starts here**
 
 1. Stay on `jason_voung/feature/landing_repo_downloads`
-2. Add `toolsCatalog.ts` with all 25 entries (`desktop.comingSoon: true` where no release yet)
-3. Build hub + per-tool pages + shared components
-4. Wire Header nav + Research Install CTAs
-5. Match existing CSS patterns (`ResearchPage.css`, `Header.css`, etc.)
-6. Open PR → `dev`
+2. Add `toolsCatalog.ts` with **all 25 entries** (`desktop.comingSoon: true` where no release yet)
+3. Build shared components (`ToolsHub`, `ToolInstallPage`, `ToolCard`, `TerminalInstallBlock`, `DesktopDownloadBlock`)
+4. **Every tool must have a working `/tools/:slug` page** using those components + its catalog data
+5. Wire Header nav + Research Install CTAs for each linked tool
+6. Match existing CSS patterns (`ResearchPage.css`, `Header.css`, etc.)
 
-### Phase 2 — Terminal installs
+### Phase 2 — Terminal installs (runs in parallel with Phase 1 landing pages)
 
-- **2A (11 repos):** open PRs only for the install-script list above; landing shows `curl | bash`
-- **2B (10 tools):** landing-only — digital terminal with existing setup commands; **no repo changes** unless README is wrong
+- **2A (9 scripts to create + 2 existing):** open PRs in each repo and **write `scripts/install.sh`**; then wire curl UI on that tool’s landing page
+- **2B (10 tools):** landing-only — **create digital terminal content** per tool in catalog; no repo PRs unless README is wrong
 
 ### Phase 3 — Desktop releases
 
@@ -307,13 +332,29 @@ Optional v1.5: build script that calls `api.github.com/repos/.../releases/latest
 ## Success criteria
 
 - [ ] `/tools` lists all 25 tools with correct install-mode badges
-- [ ] Every tool has `/tools/:slug` with accurate terminal instructions
+- [ ] **All 25** `/tools/:slug` pages render with correct components (curl, digital terminal, and/or desktop block)
+- [ ] `toolsCatalog.ts` has a complete entry for every tool
 - [ ] Research project cards link to install pages
 - [ ] Desktop tools show download buttons (or “Coming soon”) per OS
-- [ ] Phase 2A tools: `curl | bash` one-liner wired to install.sh
-- [ ] Phase 2B tools: digital terminal shows accurate README/setup.sh commands (no new install.sh)
+- [ ] **Phase 2A: `scripts/install.sh` created and merged** in 9 repos; Wooven + Polylogue wired to existing scripts
+- [ ] Phase 2A landing pages: `curl | bash` one-liner tested against live scripts on `main`
+- [ ] Phase 2B landing pages: digital terminal shows accurate README/setup.sh commands per tool
 - [ ] PR merges to `dev`; Cloudflare Pages preview works on PR
 - [ ] No Cloudflare Worker required for v1 launch
+
+---
+
+## Jason’s work checklist (at a glance)
+
+| # | Work item | Count |
+|---|-----------|-------|
+| 1 | Landing components + `/tools` hub | 1 hub page |
+| 2 | Per-tool `/tools/:slug` pages via catalog | **25 pages** |
+| 3 | `toolsCatalog.ts` entries | **25 entries** |
+| 4 | **Create** `scripts/install.sh` in repo + PR | **9 repos** |
+| 5 | Wire existing `install.sh` on landing | **2 repos** (wooven, polylogue) |
+| 6 | Digital terminal catalog content + UI | **10 tools** (Phase 2B) |
+| 7 | Desktop download blocks (coming soon OK) | **7 desktop/both tools** |
 
 ---
 
