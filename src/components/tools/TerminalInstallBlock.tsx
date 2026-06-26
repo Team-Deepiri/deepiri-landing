@@ -1,9 +1,55 @@
-import { useState } from 'react';
-import type { ToolEntry } from '../../data/toolsCatalog';
+import { useMemo, useState } from 'react';
+import type { TerminalOs, ToolEntry } from '../../data/toolsCatalog';
 import './tools.css';
 
 interface TerminalInstallBlockProps {
   terminal: NonNullable<ToolEntry['terminal']>;
+}
+
+const OS_TABS: { key: TerminalOs; label: string; icon: string }[] = [
+  { key: 'linux', label: 'Linux', icon: '🐧' },
+  { key: 'mac', label: 'macOS', icon: '🍎' },
+  { key: 'windows', label: 'Windows', icon: '🪟' },
+];
+
+function detectDefaultOs(available: TerminalOs[]): TerminalOs {
+  if (typeof navigator === 'undefined') {
+    return available[0] ?? 'linux';
+  }
+
+  const ua = navigator.userAgent.toLowerCase();
+  const platform = (navigator.platform ?? '').toLowerCase();
+
+  let guessed: TerminalOs = 'linux';
+  if (ua.includes('win') || platform.includes('win')) {
+    guessed = 'windows';
+  } else if (ua.includes('mac') || platform.includes('mac')) {
+    guessed = 'mac';
+  }
+
+  return available.includes(guessed) ? guessed : available[0] ?? 'linux';
+}
+
+function getOsTabs(
+  commandsByOs: Partial<Record<TerminalOs, string[]>> | undefined,
+): TerminalOs[] {
+  if (!commandsByOs) {
+    return [];
+  }
+  return OS_TABS.map(({ key }) => key).filter(
+    (key) => (commandsByOs[key]?.length ?? 0) > 0,
+  );
+}
+
+function resolveCommands(
+  terminal: NonNullable<ToolEntry['terminal']>,
+  os: TerminalOs,
+): string[] {
+  const byOs = terminal.commandsByOs?.[os];
+  if (byOs && byOs.length > 0) {
+    return byOs;
+  }
+  return terminal.commands ?? [];
 }
 
 function CopyButton({ text, label = 'Copy' }: { text: string; label?: string }) {
@@ -31,8 +77,51 @@ function CopyButton({ text, label = 'Copy' }: { text: string; label?: string }) 
   );
 }
 
+function TerminalCommandPanel({ commands }: { commands: string[] }) {
+  const allCommands = commands.join('\n');
+
+  return (
+    <div className="terminal-panel">
+      <div className="terminal-header">
+        <div className="terminal-dots">
+          <span className="terminal-dot terminal-dot-red" />
+          <span className="terminal-dot terminal-dot-yellow" />
+          <span className="terminal-dot terminal-dot-green" />
+        </div>
+        <CopyButton text={allCommands} label="Copy all" />
+      </div>
+      <div className="terminal-body">
+        {commands.map((line, index) => {
+          const isComment = line.trimStart().startsWith('#');
+          return (
+            <div key={`${index}-${line}`} className="terminal-line">
+              <span className="terminal-prompt">$</span>
+              <span className={isComment ? 'terminal-comment' : 'terminal-command'}>
+                {line}
+              </span>
+              {!isComment && (
+                <span className="terminal-line-actions">
+                  <CopyButton text={line} />
+                </span>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function TerminalInstallBlock({ terminal }: TerminalInstallBlockProps) {
-  const allCommands = terminal.commands?.join('\n') ?? terminal.oneLiner ?? '';
+  const osTabs = useMemo(() => getOsTabs(terminal.commandsByOs), [terminal.commandsByOs]);
+  const showOsTabs = osTabs.length >= 2;
+  const [selectedOs, setSelectedOs] = useState<TerminalOs>(() =>
+    detectDefaultOs(osTabs.length > 0 ? osTabs : ['linux']),
+  );
+
+  const activeOs = showOsTabs && osTabs.includes(selectedOs) ? selectedOs : osTabs[0] ?? 'linux';
+  const activeCommands = resolveCommands(terminal, activeOs);
+  const fallbackCommands = terminal.commands?.join('\n') ?? terminal.oneLiner ?? '';
 
   return (
     <section className="install-section">
@@ -65,43 +154,41 @@ function TerminalInstallBlock({ terminal }: TerminalInstallBlockProps) {
         </div>
       )}
 
-      {terminal.type === 'commands' && terminal.commands && (
-        <div className="terminal-panel">
-          <div className="terminal-header">
-            <div className="terminal-dots">
-              <span className="terminal-dot terminal-dot-red" />
-              <span className="terminal-dot terminal-dot-yellow" />
-              <span className="terminal-dot terminal-dot-green" />
+      {terminal.type === 'commands' && (activeCommands.length > 0 || fallbackCommands) && (
+        <>
+          {showOsTabs && (
+            <div className="terminal-os-tabs" role="tablist" aria-label="Operating system">
+              {OS_TABS.filter(({ key }) => osTabs.includes(key)).map(({ key, label, icon }) => (
+                <button
+                  key={key}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeOs === key}
+                  className={`terminal-os-tab${activeOs === key ? ' active' : ''}`}
+                  onClick={() => setSelectedOs(key)}
+                >
+                  <span aria-hidden="true">{icon}</span> {label}
+                </button>
+              ))}
             </div>
-            <CopyButton text={allCommands} label="Copy all" />
-          </div>
-          <div className="terminal-body">
-            {terminal.commands.map((line, index) => {
-              const isComment = line.trimStart().startsWith('#');
-              return (
-                <div key={`${index}-${line}`} className="terminal-line">
-                  <span className="terminal-prompt">$</span>
-                  <span
-                    className={isComment ? 'terminal-comment' : 'terminal-command'}
-                  >
-                    {line}
-                  </span>
-                  {!isComment && (
-                    <span className="terminal-line-actions">
-                      <CopyButton text={line} />
-                    </span>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+          )}
+          <TerminalCommandPanel commands={activeCommands} />
+        </>
       )}
 
       {terminal.verifyCommand && (
         <div className="verify-block">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
-            <p className="verify-label" style={{ margin: 0 }}>Verify installation</p>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: '1rem',
+            }}
+          >
+            <p className="verify-label" style={{ margin: 0 }}>
+              Verify installation
+            </p>
             <CopyButton text={terminal.verifyCommand} label="Copy" />
           </div>
           <code className="verify-command">{terminal.verifyCommand}</code>

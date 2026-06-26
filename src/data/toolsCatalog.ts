@@ -1,4 +1,5 @@
 export type InstallMode = 'terminal' | 'desktop' | 'both';
+export type TerminalOs = 'linux' | 'mac' | 'windows';
 
 export interface ToolEntry {
   slug: string;
@@ -12,6 +13,8 @@ export interface ToolEntry {
     oneLiner?: string;
     curlScript?: string;
     commands?: string[];
+    /** When macOS vs Linux (or Windows) steps differ, provide per-OS command lists. */
+    commandsByOs?: Partial<Record<TerminalOs, string[]>>;
     prerequisites?: string[];
     verifyCommand?: string;
   };
@@ -217,15 +220,26 @@ export const toolsCatalog: ToolEntry[] = [
         'Poetry',
         'Clone deepiri-gpu-utils as sibling of this repo (for orchestrator deps)',
       ],
-      commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-renderflow-studio.git',
-        'cd deepiri-renderflow-studio',
-        'cargo test --manifest-path core/timeline-engine-rs/Cargo.toml',
-        'cd services/orchestrator && poetry install && ./scripts/run_orchestrator.sh',
-        '# Desktop UI (Linux: install WebKitGTK dev packages first):',
-        'cd ../../apps/desktop-tauri/ui && npm install && npm run build',
-        'cd ../src-tauri && cargo build',
-      ],
+      commandsByOs: {
+        linux: [
+          'git clone https://github.com/Team-Deepiri/deepiri-renderflow-studio.git',
+          'cd deepiri-renderflow-studio',
+          'cargo test --manifest-path core/timeline-engine-rs/Cargo.toml',
+          'cd services/orchestrator && poetry install && ./scripts/run_orchestrator.sh',
+          '# Tauri desktop UI — install WebKitGTK dev packages first:',
+          'sudo apt install -y libwebkit2gtk-4.1-dev build-essential',
+          'cd ../../apps/desktop-tauri/ui && npm install && npm run build',
+          'cd ../src-tauri && cargo build',
+        ],
+        mac: [
+          'git clone https://github.com/Team-Deepiri/deepiri-renderflow-studio.git',
+          'cd deepiri-renderflow-studio',
+          'cargo test --manifest-path core/timeline-engine-rs/Cargo.toml',
+          'cd services/orchestrator && poetry install && ./scripts/run_orchestrator.sh',
+          'cd ../../apps/desktop-tauri/ui && npm install && npm run build',
+          'cd ../src-tauri && cargo build',
+        ],
+      },
       verifyCommand: 'curl -s http://127.0.0.1:8080/health',
     },
     desktop: {
@@ -266,16 +280,22 @@ export const toolsCatalog: ToolEntry[] = [
     tags: ['CLI', 'Desktop', 'HCI'],
     terminal: {
       type: 'commands',
-      prerequisites: ['Git', 'Python 3.12+', 'Poetry 2.0+', 'CMake 3.20+', 'C++17 compiler', 'Qt6 (Linux)'],
-      commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-egottol.git',
-        'cd deepiri-egottol',
-        './setup.sh',
-        '# Or manual setup:',
-        '# poetry install',
-        '# cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --parallel',
-        '# poetry run python -m egottol.ui.main',
-      ],
+      prerequisites: ['Git', 'Python 3.12+', 'Poetry 2.0+', 'CMake 3.20+', 'C++17 compiler', 'Qt6'],
+      commandsByOs: {
+        linux: [
+          'git clone https://github.com/Team-Deepiri/deepiri-egottol.git',
+          'cd deepiri-egottol',
+          '# Debian/Ubuntu Qt6 dev packages:',
+          'sudo apt install -y qt6-base-dev cmake build-essential',
+          './setup.sh',
+        ],
+        mac: [
+          'git clone https://github.com/Team-Deepiri/deepiri-egottol.git',
+          'cd deepiri-egottol',
+          'brew install qt@6 cmake poetry',
+          './setup.sh',
+        ],
+      },
       verifyCommand: 'poetry run python -c "import egottol; print(\'ok\')"',
     },
     desktop: {
@@ -363,16 +383,24 @@ export const toolsCatalog: ToolEntry[] = [
         'PyTorch 2.2+',
         'NVIDIA CUDA, AMD ROCm, or Apple Silicon (optional)',
       ],
-      commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-mudspeed.git',
-        'cd deepiri-mudspeed',
-        'bash .setup.sh',
-        'bash .train.sh --quick',
-        'bash .benchmark.sh',
-        '# Or install as a library:',
-        '# poetry install',
-        '# pip install -e .',
-      ],
+      commandsByOs: {
+        linux: [
+          'git clone https://github.com/Team-Deepiri/deepiri-mudspeed.git',
+          'cd deepiri-mudspeed',
+          '# NVIDIA CUDA (optional): pip install torch --index-url https://download.pytorch.org/whl/cu121',
+          'bash .setup.sh',
+          'bash .train.sh --quick',
+          'bash .benchmark.sh',
+        ],
+        mac: [
+          'git clone https://github.com/Team-Deepiri/deepiri-mudspeed.git',
+          'cd deepiri-mudspeed',
+          '# Apple Silicon uses MPS; CPU-only works without extra PyTorch wheels',
+          'bash .setup.sh',
+          'bash .train.sh --quick',
+          'bash .benchmark.sh',
+        ],
+      },
       verifyCommand: 'bash .benchmark.sh',
     },
   },
@@ -442,16 +470,21 @@ export const toolsCatalog: ToolEntry[] = [
     tags: ['CLI', 'AI/ML', 'Data'],
     terminal: {
       type: 'commands',
-      prerequisites: ['Git', 'Bash', 'Python 3.10+', 'Linux or macOS (setup.sh uses apt on Debian)'],
-      commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-aarflingo.git',
-        'cd deepiri-aarflingo',
-        './setup.sh',
-        '# Install + launch runtime and Electron studio:',
-        '# ./setup.sh --run',
-        '# Then in another terminal:',
-        '# ./scripts/run_runtime.sh',
-      ],
+      prerequisites: ['Git', 'Bash', 'Python 3.10+', 'Node.js 18+ (for Electron studio)'],
+      commandsByOs: {
+        linux: [
+          'git clone https://github.com/Team-Deepiri/deepiri-aarflingo.git',
+          'cd deepiri-aarflingo',
+          '# setup.sh installs apt packages on Debian/Ubuntu',
+          './setup.sh --run',
+        ],
+        mac: [
+          'git clone https://github.com/Team-Deepiri/deepiri-aarflingo.git',
+          'cd deepiri-aarflingo',
+          '# Install Homebrew deps if prompted, then build + launch:',
+          './setup.sh --run',
+        ],
+      },
       verifyCommand: 'curl -s http://127.0.0.1:8765/health',
     },
   },

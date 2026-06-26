@@ -132,6 +132,38 @@
   margin: 0;
 }
 
+.terminal-os-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.terminal-os-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-light);
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.terminal-os-tab:hover {
+  border-color: var(--primary-light);
+  color: var(--text);
+}
+
+.terminal-os-tab.active {
+  color: white;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-color: transparent;
+}
+
 .terminal-panel {
   background: var(--bg-dark);
   border-radius: 0.75rem;
