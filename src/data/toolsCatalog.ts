@@ -88,8 +88,8 @@ export const toolsCatalog: ToolEntry[] = [
     tags: ['CLI', 'Tools'],
     terminal: {
       ...curlInstall('Team-Deepiri/diri-agent-toolbox'),
-      prerequisites: ['Python 3.10+', 'pip or Poetry'],
-      verifyCommand: 'deepiri-agent-toolbox --help',
+      prerequisites: ['Git', 'Python 3.11+', 'Bash'],
+      verifyCommand: 'python3 -c "import diri_agent_toolbox; print(\'ok\')"',
     },
   },
   {
@@ -101,8 +101,8 @@ export const toolsCatalog: ToolEntry[] = [
     tags: ['CLI', 'AI/ML', 'Infrastructure'],
     terminal: {
       ...curlInstall('Team-Deepiri/deepiri-training-orchestrator'),
-      prerequisites: ['Python 3.10+', 'Docker (optional)'],
-      verifyCommand: 'deepiri-training-orchestrator --version',
+      prerequisites: ['Git', 'Python 3.10+ (<3.14)', 'Poetry (optional)', 'Bash'],
+      verifyCommand: 'python3 -c "import deepiri_training_orchestrator; print(\'ok\')"',
     },
   },
   {
@@ -114,8 +114,8 @@ export const toolsCatalog: ToolEntry[] = [
     tags: ['CLI', 'Data', 'AI/ML'],
     terminal: {
       ...curlInstall('Team-Deepiri/deepiri-dataset-processor'),
-      prerequisites: ['Python 3.10+'],
-      verifyCommand: 'deepiri-dataset-processor --help',
+      prerequisites: ['Git', 'Python 3.11+', 'Bash'],
+      verifyCommand: 'python3 -c "import deepiri_dataset_processor; print(\'ok\')"',
     },
   },
   {
@@ -157,8 +157,8 @@ export const toolsCatalog: ToolEntry[] = [
     tags: ['CLI', 'AI/ML', 'Infrastructure'],
     terminal: {
       ...curlInstall('Team-Deepiri/deepiri-memorymesh'),
-      prerequisites: ['Python 3.10+', 'Redis or compatible store'],
-      verifyCommand: 'deepiri-memorymesh status',
+      prerequisites: ['Git', 'Python 3.10+', 'Bash', '~/.local/bin on PATH'],
+      verifyCommand: 'memorymesh --help',
     },
   },
   {
@@ -276,8 +276,8 @@ export const toolsCatalog: ToolEntry[] = [
     tags: ['CLI', 'Infrastructure'],
     terminal: {
       ...curlInstall('Team-Deepiri/deepiri-gpu-utils'),
-      prerequisites: ['Python 3.10+', 'NVIDIA or AMD drivers'],
-      verifyCommand: 'deepiri-gpu doctor',
+      prerequisites: ['Git', 'Python 3.11+', 'Bash', '~/.local/bin on PATH'],
+      verifyCommand: 'deepiri-gpu detect --json',
     },
   },
   {
@@ -306,9 +306,9 @@ export const toolsCatalog: ToolEntry[] = [
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML'],
     terminal: {
-      ...curlInstall('Team-Deepiri/deepiri-polylogue', 'install.sh'),
-      prerequisites: ['Python 3.10+', 'Bash'],
-      verifyCommand: 'polylogue --help',
+      ...curlInstall('Team-Deepiri/deepiri-polylogue'),
+      prerequisites: ['Git', 'Python 3.10+', 'Bash', '~/.local/bin on PATH'],
+      verifyCommand: 'deepiri-polylogue --version',
     },
   },
   {
@@ -321,8 +321,8 @@ export const toolsCatalog: ToolEntry[] = [
     researchLink: true,
     terminal: {
       ...curlInstall('Team-Deepiri/deepiri-prismpipe'),
-      prerequisites: ['Python 3.10+', 'Docker (optional)'],
-      verifyCommand: 'prismpipe --version',
+      prerequisites: ['Git', 'Python 3.11+', 'Poetry (optional)', 'Bash'],
+      verifyCommand: 'python3 -c "import prismpipe; print(\'ok\')"',
     },
   },
   {
@@ -391,8 +391,8 @@ export const toolsCatalog: ToolEntry[] = [
     tags: ['CLI', 'Ethics', 'AI/ML'],
     terminal: {
       ...curlInstall('Team-Deepiri/diri-agent-guardrails'),
-      prerequisites: ['Python 3.10+'],
-      verifyCommand: 'deepiri-guardrails --help',
+      prerequisites: ['Git', 'Python 3.10+', 'Poetry (optional)', 'Bash'],
+      verifyCommand: 'python3 -c "import diri_agent_guardrails; print(\'ok\')"',
     },
   },
   {
@@ -420,9 +420,9 @@ export const toolsCatalog: ToolEntry[] = [
     installMode: 'terminal',
     tags: ['CLI', 'Platform'],
     terminal: {
-      ...curlInstall('Team-Deepiri/deepiri-wooven', 'install.sh'),
-      prerequisites: ['Python 3.10+', 'Bash'],
-      verifyCommand: 'wooven --help',
+      ...curlInstall('Team-Deepiri/deepiri-wooven'),
+      prerequisites: ['Git', 'Python 3.10+', 'Bash', '~/.local/bin on PATH'],
+      verifyCommand: 'deepiri-wooven --version && deepiri-wooven service status',
     },
   },
   {
@@ -470,8 +470,8 @@ export const toolsCatalog: ToolEntry[] = [
     tags: ['CLI', 'AI/ML', 'Tools'],
     terminal: {
       ...curlInstall('Team-Deepiri/deepiri-ollama-utils'),
-      prerequisites: ['Python 3.10+', 'Ollama installed locally'],
-      verifyCommand: 'deepiri-ollama-utils --help',
+      prerequisites: ['Git', 'Python 3.9+', 'Ollama running (for verify)', 'Bash', '~/.local/bin on PATH'],
+      verifyCommand: 'deepiri-ollama-utils check',
     },
   },
   {
@@ -484,8 +484,8 @@ export const toolsCatalog: ToolEntry[] = [
     researchLink: true,
     terminal: {
       ...curlInstall('Team-Deepiri/deepiri-platform'),
-      prerequisites: ['Docker & Docker Compose', 'Git', 'Bash'],
-      verifyCommand: 'docker compose ps',
+      prerequisites: ['Docker & Docker Compose v2', 'Git', 'Bash', '8GB+ RAM recommended'],
+      verifyCommand: 'docker compose -f docker-compose.dev.yml ps',
     },
   },
 ];
