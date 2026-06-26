@@ -100,7 +100,10 @@ function TerminalInstallBlock({ terminal }: TerminalInstallBlockProps) {
 
       {terminal.verifyCommand && (
         <div className="verify-block">
-          <p className="verify-label">Verify installation</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+            <p className="verify-label" style={{ margin: 0 }}>Verify installation</p>
+            <CopyButton text={terminal.verifyCommand} label="Copy" />
+          </div>
           <code className="verify-command">{terminal.verifyCommand}</code>
         </div>
       )}
