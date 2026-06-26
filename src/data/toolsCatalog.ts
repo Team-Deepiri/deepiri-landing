@@ -563,8 +563,16 @@ export const toolsCatalog: ToolEntry[] = [
     tags: ['CLI', 'Platform', 'Infrastructure'],
     researchLink: true,
     terminal: {
-      ...curlInstall('Team-Deepiri/deepiri-platform'),
-      prerequisites: ['Docker & Docker Compose v2', 'Git', 'Bash', '8GB+ RAM recommended'],
+      type: 'commands',
+      prerequisites: ['Docker & Docker Compose v2', 'Git', '8GB+ RAM recommended'],
+      commands: [
+        'git clone https://github.com/Team-Deepiri/deepiri-platform.git',
+        'cd deepiri-platform',
+        'git submodule update --init --recursive',
+        'docker compose -f docker-compose.dev.yml up -d',
+        'docker compose -f docker-compose.dev.yml ps',
+        '# Frontend: http://localhost:5173  API Gateway: http://localhost:5100  Cyrex: http://localhost:8000',
+      ],
       verifyCommand: 'docker compose -f docker-compose.dev.yml ps',
     },
   },
