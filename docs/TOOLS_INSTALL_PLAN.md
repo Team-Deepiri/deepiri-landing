@@ -134,7 +134,7 @@ Jason: you own the **landing pages** for all tools below. For terminal tools, mo
 | 5 | Dataset Processor | `dataset-processor` | Terminal | https://github.com/Team-Deepiri/deepiri-dataset-processor |
 | 6 | Deepiri Emotion | `emotion` | **Both** (TUI + desktop) | https://github.com/Team-Deepiri/deepiri-emotion-desktop |
 | 7 | MemoryMesh | `memorymesh` | Terminal | https://github.com/Team-Deepiri/deepiri-memorymesh |
-| 8 | ZepGPU | `zepgpu` | **Both** | https://github.com/Team-Deepiri/deepiri-zepgpu |
+| 8 | ZepGPU | `zepgpu` | Terminal | https://github.com/Team-Deepiri/deepiri-zepgpu |
 | 9 | Renderflow Studio | `renderflow` | **Both** | https://github.com/Team-Deepiri/deepiri-renderflow-studio |
 | 10 | Fuselk | `fuselk` | **Desktop only** | https://github.com/Team-Deepiri/deepiri-fuselk |
 | 11 | Egottol | `egottol` | **Both** | https://github.com/Team-Deepiri/deepiri-egottol |
@@ -184,7 +184,7 @@ There is no shortcut of “only building a few pages.” Every slug in the catal
 
 #### Phase 2A — You must **create** `install.sh` in these repos (+ landing curl UI)
 
-For **9 repos below**, open a PR in that repo and **author a real `scripts/install.sh`** (idempotent, `--help`, detects OS, installs deps, verifies install). Do not skip this — the landing `curl | bash` block is useless until the script exists on `main`.
+For **8 repos below**, open a PR in that repo and **author a real `scripts/install.sh`** (idempotent, `--help`, detects OS, installs deps, verifies install). Do not skip this — the landing `curl | bash` block is useless until the script exists on `main`.
 
 Wooven and Polylogue already have root `install.sh` — point the landing curl URL at those existing files (or add `scripts/install.sh` that delegates to them).
 
@@ -196,7 +196,6 @@ curl -fsSL https://raw.githubusercontent.com/Team-Deepiri/{repo}/main/scripts/in
 
 | Tool | Repo | URL | **Your action — create the script** |
 |------|------|-----|-------------------------------------|
-| Platform | deepiri-platform | https://github.com/Team-Deepiri/deepiri-platform | **Create** `scripts/install.sh` (Docker Compose bootstrap) |
 | Agent Toolbox | diri-agent-toolbox | https://github.com/Team-Deepiri/diri-agent-toolbox | **Create** `scripts/install.sh` |
 | Prismpipe | deepiri-prismpipe | https://github.com/Team-Deepiri/deepiri-prismpipe | **Create** `scripts/install.sh` |
 | GPU Utils | deepiri-gpu-utils | https://github.com/Team-Deepiri/deepiri-gpu-utils | **Create** `scripts/install.sh` |
@@ -222,6 +221,7 @@ For these tools, **do not add `install.sh`**. Instead, **create the landing page
 
 | Tool | Slug | Repo | Commands to show in digital terminal |
 |------|------|------|--------------------------------------|
+| Deepiri Platform | `platform` | https://github.com/Team-Deepiri/deepiri-platform | `git clone` → `git submodule update --init --recursive` → `docker compose -f docker-compose.dev.yml up -d` |
 | Cyrex | `cyrex` | https://github.com/Team-Deepiri/diri-cyrex | Clone platform or cyrex → `docker compose` up AI stack, or `poetry install` for local dev |
 | Helox | `helox` | https://github.com/Team-Deepiri/deepiri-platform (`diri-helox`) | `git submodule update --init diri-helox` → `cd diri-helox` → `poetry install` |
 | Mudspeed | `mudspeed` | https://github.com/Team-Deepiri/deepiri-mudspeed | `git clone` → `bash .setup.sh` → `bash .train.sh` |
@@ -247,11 +247,12 @@ For these tools, **do not add `install.sh`**. Instead, **create the landing page
 | P1 | deepiri-voxier | https://github.com/Team-Deepiri/deepiri-voxier | Godot export CI → zip/dmg/exe |
 | P1 | deepiri-fuselk | https://github.com/Team-Deepiri/deepiri-fuselk | PyInstaller PySide6 + `release.yml` |
 | P2 | deepiri-egottol | https://github.com/Team-Deepiri/deepiri-egottol | PyInstaller + C++ core + `release.yml` |
-| P2 | deepiri-zepgpu | https://github.com/Team-Deepiri/deepiri-zepgpu | CLI installer + optional desktop wrapper |
 | P3 | deepiri-renderflow-studio | https://github.com/Team-Deepiri/deepiri-renderflow-studio | Tauri (`apps/desktop-tauri`) + `release.yml` |
 | P3 | deepiri-calliope | https://github.com/Team-Deepiri/deepiri-calliope | Tauri/Electron shell — needs product decision (Docker vs bundled) |
 
 **Emotion desktop** already has electron-builder targets in `package.json` (NSIS, DMG, deb, AppImage). Add `.github/workflows/release.yml` to publish on tag/release.
+
+**ZepGPU** is **terminal-only** for v1 — install via Docker Compose on the landing digital terminal. No GitHub Release desktop pipeline or `DesktopDownloadBlock` for this tool.
 
 **Renderflow** Tauri config: `apps/desktop-tauri/src-tauri/tauri.conf.json` — needs icons + release workflow.
 
@@ -270,8 +271,8 @@ For these tools, **do not add `install.sh`**. Instead, **create the landing page
 
 ### Phase 2 — Terminal installs (runs in parallel with Phase 1 landing pages)
 
-- **2A (9 scripts to create + 2 existing):** open PRs in each repo and **write `scripts/install.sh`**; then wire curl UI on that tool’s landing page
-- **2B (10 tools):** landing-only — **create digital terminal content** per tool in catalog; no repo PRs unless README is wrong
+- **2A (8 scripts to create + 2 existing):** open PRs in each repo and **write `scripts/install.sh`**; then wire curl UI on that tool’s landing page
+- **2B (11 tools):** landing-only — **create digital terminal content** per tool in catalog; no repo PRs unless README is wrong. **Deepiri Platform** uses Docker Compose commands on the landing page (no `install.sh`).
 
 ### Phase 3 — Desktop releases
 
@@ -321,8 +322,9 @@ Optional v1.5: build script that calls `api.github.com/repos/.../releases/latest
 
 | Topic | Decision needed |
 |-------|-----------------|
+| **ZepGPU** | Terminal/Docker only — no desktop installer or Phase 3 release pipeline in v1 |
 | **Calliope desktop** | Docker-first today (Postgres + Ollama). Desktop installer = Electron/Tauri shell + Docker prerequisite, or slim local mode? |
-| **Cyrex / Helox** | Platform services — pages should lead with Docker Compose from `deepiri-platform`, not imply a single binary |
+| **Cyrex / Helox / Platform** | Platform services — pages lead with Docker Compose from `deepiri-platform`, not a curl one-liner or single binary |
 | **Ollama Utils** | Package as wheel/zip on GitHub Releases; landing links direct download + pip/git fallback |
 | **Topolsea** | Landing shows `cargo` + `poetry` commands; no install.sh in v1 |
 | **PyPI** | Phase 2A curl scripts may wrap pip; Phase 2B shows raw README commands |
@@ -336,7 +338,7 @@ Optional v1.5: build script that calls `api.github.com/repos/.../releases/latest
 - [ ] `toolsCatalog.ts` has a complete entry for every tool
 - [ ] Research project cards link to install pages
 - [ ] Desktop tools show download buttons (or “Coming soon”) per OS
-- [ ] **Phase 2A: `scripts/install.sh` created and merged** in 9 repos; Wooven + Polylogue wired to existing scripts
+- [ ] **Phase 2A: `scripts/install.sh` created and merged** in 8 repos; Wooven + Polylogue wired to existing scripts
 - [ ] Phase 2A landing pages: `curl | bash` one-liner tested against live scripts on `main`
 - [ ] Phase 2B landing pages: digital terminal shows accurate README/setup.sh commands per tool
 - [ ] PR merges to `dev`; Cloudflare Pages preview works on PR
@@ -351,10 +353,10 @@ Optional v1.5: build script that calls `api.github.com/repos/.../releases/latest
 | 1 | Landing components + `/tools` hub | 1 hub page |
 | 2 | Per-tool `/tools/:slug` pages via catalog | **25 pages** |
 | 3 | `toolsCatalog.ts` entries | **25 entries** |
-| 4 | **Create** `scripts/install.sh` in repo + PR | **9 repos** |
+| 4 | **Create** `scripts/install.sh` in repo + PR | **8 repos** |
 | 5 | Wire existing `install.sh` on landing | **2 repos** (wooven, polylogue) |
-| 6 | Digital terminal catalog content + UI | **10 tools** (Phase 2B) |
-| 7 | Desktop download blocks (coming soon OK) | **7 desktop/both tools** |
+| 6 | Digital terminal catalog content + UI | **11 tools** (Phase 2B, incl. platform) |
+| 7 | Desktop download blocks (coming soon OK) | **6 desktop/both tools** (ZepGPU excluded — terminal only) |
 
 ---
 
