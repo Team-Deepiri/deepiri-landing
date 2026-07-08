@@ -43,7 +43,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'cyrex',
     name: 'Cyrex',
-    tagline: 'Production-ready AI platform for multi-agent orchestration and enterprise RAG.',
+    tagline: 'Cyrex agentic runtime framework.',
     repo: 'Team-Deepiri/diri-cyrex',
     installMode: 'terminal',
     tags: ['CLI', 'Platform', 'AI/ML'],
@@ -71,7 +71,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'helox',
     name: 'Helox',
-    tagline: 'Machine learning engine for data generation, training, and evaluation pipelines.',
+    tagline: 'Model fine-tuning and model versioning framework.',
     repo: 'Team-Deepiri/deepiri-platform',
     installMode: 'terminal',
     tags: ['CLI', 'Platform', 'AI/ML'],
@@ -256,7 +256,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'fuselk',
     name: 'Fuselk',
-    tagline: 'Desktop fusion toolkit for linking local apps with Deepiri cloud services.',
+    tagline: 'JAX-accelerated tokamak simulator with hierarchical RL control.',
     repo: 'Team-Deepiri/deepiri-fuselk',
     installMode: 'desktop',
     tags: ['Desktop', 'Platform'],
@@ -274,7 +274,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'egottol',
     name: 'Egottol',
-    tagline: 'Hybrid C++/Python UI framework for high-performance Deepiri desktop tools.',
+    tagline: 'Analog SPICE and VHDL simulation lab with GPU-accelerated analysis.',
     repo: 'Team-Deepiri/deepiri-egottol',
     installMode: 'both',
     tags: ['CLI', 'Desktop', 'HCI'],
@@ -325,7 +325,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'calliope',
     name: 'Calliope',
-    tagline: 'Creative writing and narrative AI assistant with local and cloud backends.',
+    tagline: 'Local-first AI music studio stack with FastAPI backend, Vite React UI, PostgreSQL, and Ollama.',
     repo: 'Team-Deepiri/deepiri-calliope',
     installMode: 'desktop',
     tags: ['Desktop', 'AI/ML', 'HCI'],
@@ -343,7 +343,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'polylogue',
     name: 'Polylogue',
-    tagline: 'Multi-voice dialogue system for conversational AI and agent personas.',
+    tagline: 'Filesystem-first shared LLM Streaming Journal Network (SJN).',
     repo: 'Team-Deepiri/deepiri-polylogue',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML'],
@@ -370,7 +370,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'mudspeed',
     name: 'Mudspeed',
-    tagline: 'Hybrid GPU emulator with Neural ODE acceleration — 10–1000× faster than cycle-accurate simulators.',
+    tagline: 'Hybrid GPU emulator with Neural ODE acceleration, achieving 10-1000x speedup over cycle-accurate simulators.',
     repo: 'Team-Deepiri/deepiri-mudspeed',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML', 'Infrastructure'],
@@ -407,7 +407,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'topolsea',
     name: 'Topolsea',
-    tagline: 'Topological and geometric computation engine with Rust and Python bindings.',
+    tagline: 'SIMD-accelerated GraphANN vector database.',
     repo: 'Team-Deepiri/deepiri-topolsea',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML', 'Infrastructure'],
@@ -427,7 +427,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'uqe',
     name: 'Universal Quantum Engine',
-    tagline: 'Quantum experimentation lab with statevector simulation and PyTorch bridge.',
+    tagline: 'Research-ready quantum experimentation lab for simulation, algorithm reinvention, and hybrid quantum-classical AI.',
     repo: 'Team-Deepiri/deepiri-uqe',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML'],
@@ -491,7 +491,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'wooven',
     name: 'Wooven',
-    tagline: 'Weaving layer for composing multi-model AI workflows and data fabrics.',
+    tagline: 'Credentials manager tool.',
     repo: 'Team-Deepiri/deepiri-wooven',
     installMode: 'terminal',
     tags: ['CLI', 'Platform'],
@@ -526,7 +526,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'voxier',
     name: 'Voxier',
-    tagline: 'Voice and audio creative suite built on Godot for interactive media.',
+    tagline: 'Godot-based game project by Deepiri.',
     repo: 'Team-Deepiri/deepiri-voxier',
     installMode: 'desktop',
     tags: ['Desktop', 'Media', 'HCI'],
@@ -557,7 +557,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'platform',
     name: 'Deepiri Platform',
-    tagline: 'Open-source command center: foundational stack for every Deepiri initiative.',
+    tagline: 'Main Deepiri monolith repository.',
     repo: 'Team-Deepiri/deepiri-platform',
     installMode: 'terminal',
     tags: ['CLI', 'Platform', 'Infrastructure'],
