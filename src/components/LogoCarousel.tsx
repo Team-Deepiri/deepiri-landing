@@ -4,6 +4,7 @@ import awsLogo from "../assets/aws_logo.png";
 import ibmLogo from "../assets/ibm_logo.png";
 import salesforceLogo from "../assets/salesforce_logo.png";
 import progressiveLogo from "../assets/progressive_logo.png";
+import teslaLogo from "../assets/tesla_logo.png";
 
 interface Logo {
   name: string;
@@ -30,6 +31,10 @@ const logos: Logo[] = [
   {
     name: "Salesforce",
     src: salesforceLogo,
+  },
+  {
+    name: "Tesla",
+    src: teslaLogo,
   },
 ];
 
