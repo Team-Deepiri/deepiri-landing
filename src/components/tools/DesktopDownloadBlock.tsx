@@ -30,6 +30,19 @@ function DesktopDownloadBlock({ desktop }: DesktopDownloadBlockProps) {
           : `Download ${desktop.productName} for your operating system.`}
       </p>
 
+      {desktop.prerequisites && desktop.prerequisites.length > 0 && (
+        <>
+          <p className="install-section-desc" style={{ marginBottom: '0.75rem' }}>
+            Prerequisites:
+          </p>
+          <ul className="prerequisites-list">
+            {desktop.prerequisites.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </>
+      )}
+
       <div className="desktop-downloads">
         {OS_CONFIG.map(({ key, label, icon }) => {
           const asset = desktop.assets[key];

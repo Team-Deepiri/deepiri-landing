@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TerminalInstallBlock from '../components/tools/TerminalInstallBlock';
 import DesktopDownloadBlock from '../components/tools/DesktopDownloadBlock';
+import PackageDownloadBlock from '../components/tools/PackageDownloadBlock';
 import { getToolBySlug, installModeLabel } from '../data/toolsCatalog';
 import './ToolInstallPage.css';
 
@@ -40,6 +41,7 @@ function ToolInstallPage() {
     tool.terminal && (tool.installMode === 'terminal' || tool.installMode === 'both');
   const showDesktop =
     tool.desktop && (tool.installMode === 'desktop' || tool.installMode === 'both');
+  const showPackage = Boolean(tool.package);
 
   return (
     <div className="app">
@@ -74,6 +76,7 @@ function ToolInstallPage() {
           </div>
 
           {showTerminal && <TerminalInstallBlock terminal={tool.terminal!} />}
+          {showPackage && <PackageDownloadBlock pkg={tool.package!} />}
           {showDesktop && <DesktopDownloadBlock desktop={tool.desktop!} />}
 
           {tool.researchLink && (

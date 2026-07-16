@@ -23,6 +23,15 @@ export interface ToolEntry {
     releaseRepo?: string;
     assets: { mac?: string; linux?: string; windows?: string };
     comingSoon?: boolean;
+    prerequisites?: string[];
+  };
+  /** Packaged file download (e.g. Ollama Utils wheel on GitHub Releases). */
+  package?: {
+    label: string;
+    releaseRepo: string;
+    asset: string;
+    /** Shown under the download button (pip/git fallback). */
+    fallbackCommands?: string[];
   };
   researchLink?: boolean;
 }
@@ -132,7 +141,7 @@ export const toolsCatalog: ToolEntry[] = [
     slug: 'emotion',
     name: 'Deepiri Emotion',
     tagline: 'AI-powered development environment with context-aware chat and Cyrex integrations.',
-    repo: 'Team-Deepiri/deepiri-emotion-desktop',
+    repo: 'Team-Deepiri/deepiri-emotion',
     installMode: 'both',
     tags: ['CLI', 'Desktop', 'HCI'],
     researchLink: true,
@@ -140,8 +149,8 @@ export const toolsCatalog: ToolEntry[] = [
       type: 'commands',
       prerequisites: ['Node.js 18+', 'npm', 'Git', 'Interactive terminal (TTY)'],
       commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-emotion-desktop.git',
-        'cd deepiri-emotion-desktop',
+        'git clone https://github.com/Team-Deepiri/deepiri-emotion.git',
+        'cd deepiri-emotion',
         'npm install',
         'npm run cli',
         '# Optional: open CLI with a project workspace',
@@ -151,7 +160,7 @@ export const toolsCatalog: ToolEntry[] = [
     },
     desktop: {
       productName: 'Deepiri Emotion IDE',
-      releaseRepo: 'Team-Deepiri/deepiri-emotion-desktop',
+      releaseRepo: 'Team-Deepiri/deepiri-emotion',
       comingSoon: true,
       assets: {
         mac: 'Deepiri-Emotion-latest-arm64.dmg',
@@ -178,8 +187,8 @@ export const toolsCatalog: ToolEntry[] = [
     name: 'ZepGPU',
     tagline: 'GPU detection, scheduling, and acceleration utilities for Deepiri workloads.',
     repo: 'Team-Deepiri/deepiri-zepgpu',
-    installMode: 'both',
-    tags: ['CLI', 'Desktop', 'Infrastructure'],
+    installMode: 'terminal',
+    tags: ['CLI', 'Infrastructure'],
     terminal: {
       type: 'commands',
       prerequisites: ['Git', 'Docker & Docker Compose v2', 'NVIDIA Container Toolkit (optional, for GPU tasks)'],
@@ -192,16 +201,6 @@ export const toolsCatalog: ToolEntry[] = [
         '# poetry install && poetry run uvicorn deepiri_zepgpu.api.server.main:app --reload',
       ],
       verifyCommand: 'curl -s http://localhost:8000/api/v1/health',
-    },
-    desktop: {
-      productName: 'ZepGPU',
-      releaseRepo: 'Team-Deepiri/deepiri-zepgpu',
-      comingSoon: true,
-      assets: {
-        mac: 'ZepGPU-latest.dmg',
-        linux: 'ZepGPU-latest.AppImage',
-        windows: 'ZepGPU-latest-setup.exe',
-      },
     },
   },
   {
@@ -245,7 +244,6 @@ export const toolsCatalog: ToolEntry[] = [
     desktop: {
       productName: 'Renderflow Studio',
       releaseRepo: 'Team-Deepiri/deepiri-renderflow-studio',
-      comingSoon: true,
       assets: {
         mac: 'Renderflow-Studio-latest.dmg',
         linux: 'Renderflow-Studio-latest.AppImage',
@@ -285,15 +283,21 @@ export const toolsCatalog: ToolEntry[] = [
         linux: [
           'git clone https://github.com/Team-Deepiri/deepiri-egottol.git',
           'cd deepiri-egottol',
-          '# Debian/Ubuntu Qt6 dev packages:',
           'sudo apt install -y qt6-base-dev cmake build-essential',
-          './setup.sh',
+          'poetry install',
+          'cmake -B build -DCMAKE_BUILD_TYPE=Release',
+          'cmake --build build --parallel',
+          'poetry run python -m egottol.ui.main',
+          '# Debian/Ubuntu one-shot alternative: ./setup.sh',
         ],
         mac: [
           'git clone https://github.com/Team-Deepiri/deepiri-egottol.git',
           'cd deepiri-egottol',
           'brew install qt@6 cmake poetry',
-          './setup.sh',
+          'poetry install',
+          'CMAKE_PREFIX_PATH="$(brew --prefix qt@6)" cmake -B build -DCMAKE_BUILD_TYPE=Release',
+          'cmake --build build --parallel',
+          'poetry run python -m egottol.ui.main',
         ],
       },
       verifyCommand: 'poetry run python -c "import egottol; print(\'ok\')"',
@@ -333,6 +337,12 @@ export const toolsCatalog: ToolEntry[] = [
       productName: 'Calliope',
       releaseRepo: 'Team-Deepiri/deepiri-calliope',
       comingSoon: true,
+      prerequisites: [
+        'Docker Desktop (or Docker Engine on Linux)',
+        'Ollama with `ollama pull mistral`',
+        'Optional: cloud API key (OpenAI, Anthropic, OpenRouter, or Gemini)',
+        '~2 GB disk for images and models',
+      ],
       assets: {
         mac: 'Calliope-latest.dmg',
         linux: 'Calliope-latest.AppImage',
@@ -552,6 +562,16 @@ export const toolsCatalog: ToolEntry[] = [
       ...curlInstall('Team-Deepiri/deepiri-ollama-utils'),
       prerequisites: ['Git', 'Python 3.9+', 'Ollama running (for verify)', 'Bash', '~/.local/bin on PATH'],
       verifyCommand: 'deepiri-ollama-utils check',
+    },
+    package: {
+      label: 'Python wheel',
+      releaseRepo: 'Team-Deepiri/deepiri-ollama-utils',
+      asset: 'deepiri_ollama_utils-0.1.0-py3-none-any.whl',
+      fallbackCommands: [
+        'pip install https://github.com/Team-Deepiri/deepiri-ollama-utils/releases/latest/download/deepiri_ollama_utils-0.1.0-py3-none-any.whl',
+        '# Or from source:',
+        'pip install git+https://github.com/Team-Deepiri/deepiri-ollama-utils.git',
+      ],
     },
   },
   {

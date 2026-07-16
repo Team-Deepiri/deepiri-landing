@@ -248,7 +248,7 @@ For these tools, **do not add `install.sh`**. Instead, **create the landing page
 | P1 | deepiri-fuselk | https://github.com/Team-Deepiri/deepiri-fuselk | PyInstaller PySide6 + `release.yml` |
 | P2 | deepiri-egottol | https://github.com/Team-Deepiri/deepiri-egottol | PyInstaller + C++ core + `release.yml` |
 | P3 | deepiri-renderflow-studio | https://github.com/Team-Deepiri/deepiri-renderflow-studio | Tauri (`apps/desktop-tauri`) + `release.yml` |
-| P3 | deepiri-calliope | https://github.com/Team-Deepiri/deepiri-calliope | Tauri/Electron shell — needs product decision (Docker vs bundled) |
+| P3 | deepiri-calliope | https://github.com/Team-Deepiri/deepiri-calliope | Tauri hybrid installer (Option C) — see `deepiri-calliope/docs/DESKTOP_RELEASE.md` |
 
 **Emotion desktop** already has electron-builder targets in `package.json` (NSIS, DMG, deb, AppImage). Add `.github/workflows/release.yml` to publish on tag/release.
 
@@ -323,7 +323,7 @@ Optional v1.5: build script that calls `api.github.com/repos/.../releases/latest
 | Topic | Decision needed |
 |-------|-----------------|
 | **ZepGPU** | Terminal/Docker only — no desktop installer or Phase 3 release pipeline in v1 |
-| **Calliope desktop** | Docker-first today (Postgres + Ollama). Desktop installer = Electron/Tauri shell + Docker prerequisite, or slim local mode? |
+| **Calliope desktop** | **Option C hybrid** — Tauri shell + setup wizard + Docker/Ollama prerequisites; public `ghcr.io/team-deepiri/calliope-api`.
 | **Cyrex / Helox / Platform** | Platform services — pages lead with Docker Compose from `deepiri-platform`, not a curl one-liner or single binary |
 | **Ollama Utils** | Package as wheel/zip on GitHub Releases; landing links direct download + pip/git fallback |
 | **Topolsea** | Landing shows `cargo` + `poetry` commands; no install.sh in v1 |

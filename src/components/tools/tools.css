@@ -323,3 +323,8 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
+
+.package-fallback {
+  margin-top: 1.5rem;
+}
+

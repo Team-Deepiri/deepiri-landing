@@ -33,7 +33,7 @@ export const researchRepos: ResearchRepo[] = [
   {
     iconKey: 'emotion',
     name: 'Deepiri Emotion IDE',
-    githubUrl: 'https://github.com/Team-Deepiri/deepiri-emotion-desktop',
+    githubUrl: 'https://github.com/Team-Deepiri/deepiri-emotion',
     description:
       'Emotion IDE is our AI-powered development environment designed to make engineers faster, sharper, and more creative. With context-aware chat, apply-to-file workflows, and optional Cyrex and Helox integrations, it bridges daily coding with advanced RAG, pipeline execution, and API automation.',
     toolSlug: 'emotion',
