@@ -161,7 +161,6 @@ export const toolsCatalog: ToolEntry[] = [
     desktop: {
       productName: 'Deepiri Emotion IDE',
       releaseRepo: 'Team-Deepiri/deepiri-emotion',
-      comingSoon: true,
       assets: {
         mac: 'Deepiri-Emotion-latest-arm64.dmg',
         linux: 'Deepiri-Emotion-latest.AppImage',
