@@ -2,26 +2,52 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/favicon-192x192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Deepiri - An AI R&D collective building scalable automated workflows, tools, and applications for teams and organizations" />
+    <meta name="robots" content="max-image-preview:large" />
     <title>Deepiri - AI R&D Collective</title>
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Deepiri - AI R&D Collective" />
     <meta property="og:description" content="Deepiri - An AI R&D collective building scalable automated workflows, tools, and applications for teams and organizations" />
-    <meta property="og:image" content="https://deepiri.com/logo.png" />
-    <meta property="og:image:alt" content="Deepiri logo" />
+    <meta property="og:image" content="https://deepiri.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Deepiri — AI R&D Collective for productivity platforms and autonomous systems" />
     <meta property="og:url" content="https://deepiri.com" />
     <meta property="og:type" content="website" />
-    <!-- JSON-LD Organization schema to signal preferred logo/image to search engines -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://deepiri.com/og-image.png" />
+    <!-- JSON-LD: Organization logo + WebPage preferred preview image -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Deepiri",
-      "url": "https://deepiri.com",
-      "logo": "https://deepiri.com/logo.png",
-      "image": "https://deepiri.com/logo.png"
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://deepiri.com/#organization",
+          "name": "Deepiri",
+          "url": "https://deepiri.com",
+          "logo": "https://deepiri.com/logo.png"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://deepiri.com/#webpage",
+          "url": "https://deepiri.com",
+          "name": "Deepiri - AI R&D Collective",
+          "description": "Deepiri - An AI R&D collective building scalable automated workflows, tools, and applications for teams and organizations",
+          "isPartOf": { "@id": "https://deepiri.com/#organization" },
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://deepiri.com/og-image.png",
+            "width": 1200,
+            "height": 630
+          }
+        }
+      ]
     }
     </script>
   </head>
@@ -30,5 +56,3 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
-
