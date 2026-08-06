@@ -5,6 +5,8 @@ import ibmLogo from "../assets/ibm_logo.png";
 import salesforceLogo from "../assets/salesforce_logo.png";
 import progressiveLogo from "../assets/progressive_logo.png";
 import teslaLogo from "../assets/tesla_logo.png";
+import zipRecruiterLogo from "../assets/zipRecruiter_logo.png";
+import lockheedMartinLogo from "../assets/lockheedMartin_logo.png";
 
 interface Logo {
   name: string;
@@ -36,6 +38,14 @@ const logos: Logo[] = [
     name: "Tesla",
     src: teslaLogo,
   },
+  {
+    name: "ZipRecruiter",
+    src: zipRecruiterLogo,
+  },
+  {
+    name: "Lockheed Martin",
+    src: lockheedMartinLogo,
+  },
 ];
 
 function LogoGroup({
@@ -61,7 +71,12 @@ function LogoGroup({
 export default function LogoCarousel() {
   return (
     <div className="carousel-section">
-      <p className="carousel-label">Our developers have landed roles at</p>
+      <p className="carousel-headline">
+        Our organization has helped{" "}
+        <span className="carousel-headline-stat">58</span> people land paid
+        jobs in tech!
+      </p>
+      <p className="carousel-label">Developers have landed roles at</p>
       <div className="carousel-wrapper">
         <div className="carousel-track">
           <LogoGroup logos={logos} suffix="1" />

@@ -12,6 +12,7 @@ function Header() {
           <div className="nav-links">
             <a href="/about">About</a>
             <a href="/research">Research</a>
+            <a href="/tools">Tools</a>
             <a href="/contact">Contact</a>
             <div className="header-social">
               <a 
