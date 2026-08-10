@@ -260,7 +260,6 @@ export const toolsCatalog: ToolEntry[] = [
     desktop: {
       productName: 'Fuselk',
       releaseRepo: 'Team-Deepiri/deepiri-fuselk',
-      comingSoon: true,
       assets: {
         mac: 'Fuselk-latest.dmg',
         linux: 'Fuselk-latest.AppImage',
