@@ -542,7 +542,6 @@ export const toolsCatalog: ToolEntry[] = [
     desktop: {
       productName: 'Voxier',
       releaseRepo: 'Team-Deepiri/deepiri-voxier',
-      comingSoon: true,
       assets: {
         mac: 'Voxier-latest.dmg',
         linux: 'Voxier-latest.zip',
