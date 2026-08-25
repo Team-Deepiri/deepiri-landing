@@ -1,16 +1,15 @@
 import type { ToolEntry } from '../../data/toolsCatalog';
+import OsLogo, { type OsLogoKey } from './OsLogo';
 import './tools.css';
 
 interface DesktopDownloadBlockProps {
   desktop: NonNullable<ToolEntry['desktop']>;
 }
 
-type OsKey = 'mac' | 'linux' | 'windows';
-
-const OS_CONFIG: { key: OsKey; label: string; icon: string }[] = [
-  { key: 'mac', label: 'macOS', icon: '🍎' },
-  { key: 'linux', label: 'Linux', icon: '🐧' },
-  { key: 'windows', label: 'Windows', icon: '🪟' },
+const OS_CONFIG: { key: OsLogoKey; label: string }[] = [
+  { key: 'mac', label: 'macOS' },
+  { key: 'linux', label: 'Linux' },
+  { key: 'windows', label: 'Windows' },
 ];
 
 function buildDownloadUrl(releaseRepo: string, asset: string): string {
@@ -44,7 +43,7 @@ function DesktopDownloadBlock({ desktop }: DesktopDownloadBlockProps) {
       )}
 
       <div className="desktop-downloads">
-        {OS_CONFIG.map(({ key, label, icon }) => {
+        {OS_CONFIG.map(({ key, label }) => {
           const asset = desktop.assets[key];
           const hasAsset = Boolean(asset) && !isComingSoon;
           const href = hasAsset && asset ? buildDownloadUrl(releaseRepo, asset) : undefined;
@@ -63,7 +62,8 @@ function DesktopDownloadBlock({ desktop }: DesktopDownloadBlockProps) {
                 rel="noopener noreferrer"
               >
                 <span className="download-btn-os">
-                  {icon} {label}
+                  <OsLogo os={key} />
+                  {label}
                 </span>
                 <span className="download-btn-label">Download</span>
               </a>
@@ -73,7 +73,8 @@ function DesktopDownloadBlock({ desktop }: DesktopDownloadBlockProps) {
           return (
             <div key={key} className="download-btn download-btn-disabled" aria-disabled="true">
               <span className="download-btn-os">
-                {icon} {label}
+                <OsLogo os={key} />
+                {label}
               </span>
               <span className="download-btn-coming-soon">Coming soon</span>
             </div>

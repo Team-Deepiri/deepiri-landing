@@ -42,6 +42,7 @@ function Footer() {
             <ul className="footer-links">
               <li><a href="/about">About</a></li>
               <li><a href="/research">Research</a></li>
+              <li><a href="/tools">Tools</a></li>
               <li><a href="/contact">Contact</a></li>
             </ul>
           </div>
