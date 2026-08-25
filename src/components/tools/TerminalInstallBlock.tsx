@@ -1,15 +1,16 @@
 import { useMemo, useState } from 'react';
 import type { TerminalOs, ToolEntry } from '../../data/toolsCatalog';
+import OsLogo from './OsLogo';
 import './tools.css';
 
 interface TerminalInstallBlockProps {
   terminal: NonNullable<ToolEntry['terminal']>;
 }
 
-const OS_TABS: { key: TerminalOs; label: string; icon: string }[] = [
-  { key: 'linux', label: 'Linux', icon: '🐧' },
-  { key: 'mac', label: 'macOS', icon: '🍎' },
-  { key: 'windows', label: 'Windows', icon: '🪟' },
+const OS_TABS: { key: TerminalOs; label: string }[] = [
+  { key: 'linux', label: 'Linux' },
+  { key: 'mac', label: 'macOS' },
+  { key: 'windows', label: 'Windows' },
 ];
 
 function detectDefaultOs(available: TerminalOs[]): TerminalOs {
@@ -158,7 +159,7 @@ function TerminalInstallBlock({ terminal }: TerminalInstallBlockProps) {
         <>
           {showOsTabs && (
             <div className="terminal-os-tabs" role="tablist" aria-label="Operating system">
-              {OS_TABS.filter(({ key }) => osTabs.includes(key)).map(({ key, label, icon }) => (
+              {OS_TABS.filter(({ key }) => osTabs.includes(key)).map(({ key, label }) => (
                 <button
                   key={key}
                   type="button"
@@ -167,7 +168,7 @@ function TerminalInstallBlock({ terminal }: TerminalInstallBlockProps) {
                   className={`terminal-os-tab${activeOs === key ? ' active' : ''}`}
                   onClick={() => setSelectedOs(key)}
                 >
-                  <span aria-hidden="true">{icon}</span> {label}
+                  <OsLogo os={key} /> {label}
                 </button>
               ))}
             </div>

@@ -307,8 +307,23 @@
 }
 
 .download-btn-os {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+.os-logo {
+  width: 1.25rem;
+  height: 1.25rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.download-btn-os .os-logo {
+  width: 2rem;
+  height: 2rem;
 }
 
 .download-btn-label {
