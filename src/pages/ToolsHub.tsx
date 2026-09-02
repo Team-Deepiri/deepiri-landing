@@ -31,7 +31,7 @@ function ToolsHub() {
           <div className="tools-hero">
             <h1 className="tools-hero-title">Install Deepiri Tools</h1>
             <p className="tools-hero-subtitle">
-              One place to install every major Deepiri product — CLI, desktop, and platform tools.
+              Each tool shows what it does at a glance — hover to explore, click to install.
             </p>
           </div>
 
@@ -53,8 +53,8 @@ function ToolsHub() {
           </p>
 
           <div className="tools-grid">
-            {tools.map((tool) => (
-              <ToolCard key={tool.slug} tool={tool} />
+            {tools.map((tool, index) => (
+              <ToolCard key={tool.slug} tool={tool} index={index} />
             ))}
           </div>
         </div>
