@@ -43,7 +43,7 @@ export const researchRepos: ResearchRepo[] = [
     name: 'Deepiri Universal Quantum Engine',
     githubUrl: 'https://github.com/Team-Deepiri/deepiri-uqe',
     description:
-      'Universal Quantum Engine (UQE) is our quantum experimentation lab built for serious AI-forward research. It combines a pure-NumPy statevector simulator, a quantum bridge for PyTorch workflows, and interactive 3D visualizations to rapidly prototype next-gen computational ideas.',
+      'Universal Quantum Engine is a research lab built around the Deepiri Quantum Engine—QUASAR compiles circuits, DQP executes them natively, and MAPA bridges connect quantum workloads into PyTorch with optional IBM or IonQ shadow export.',
     toolSlug: 'uqe',
   },
   {

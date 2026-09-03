@@ -114,7 +114,8 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'uqe',
     name: 'Universal Quantum Engine',
-    tagline: 'Python lab for simulating quantum circuits, experimenting with algorithms, and prototyping hybrid quantum–classical models.',
+    tagline:
+      'Deepiri Quantum Engine lab—QUASAR compiles circuits, DQP runs them locally, and MAPA bridges wire quantum workloads into PyTorch with optional IBM or IonQ shadow export.',
     repo: 'Team-Deepiri/deepiri-uqe',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML'],
@@ -227,7 +228,8 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'mudspeed',
     name: 'Mudspeed',
-    tagline: 'Accelerates GPU architecture simulation by blending cycle-accurate emulation with neural surrogates for faster interactive exploration.',
+    tagline:
+      'Captures CUDA, ROCm, and MPS kernel traces, trains Neural ODE surrogates, and emulates GPU workloads through a fidelity router with API, UI, and MLflow.',
     repo: 'Team-Deepiri/deepiri-mudspeed',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML', 'Infrastructure'],
