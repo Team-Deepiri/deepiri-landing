@@ -1,5 +1,6 @@
 export type InstallMode = 'terminal' | 'desktop' | 'both';
 export type TerminalOs = 'linux' | 'mac' | 'windows';
+export type ProductKind = 'helper';
 
 export interface ToolEntry {
   slug: string;
@@ -8,6 +9,8 @@ export interface ToolEntry {
   repo: string;
   installMode: InstallMode;
   tags: string[];
+  /** Overrides the install-mode badge (e.g. Library, Helper). */
+  productKind?: ProductKind;
   terminal?: {
     type: 'curl' | 'commands';
     oneLiner?: string;
@@ -52,7 +55,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'cyrex',
     name: 'Cyrex',
-    tagline: 'Cyrex agentic runtime framework.',
+    tagline: 'Runs the platform AI service—agent chat, document intelligence, RAG search, and multi-step workflows behind one API.',
     repo: 'Team-Deepiri/diri-cyrex',
     installMode: 'terminal',
     tags: ['CLI', 'Platform', 'AI/ML'],
@@ -61,13 +64,13 @@ export const toolsCatalog: ToolEntry[] = [
       type: 'commands',
       prerequisites: ['Docker & Docker Compose v2', 'Git', '8GB+ RAM recommended'],
       commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-platform.git',
-        'cd deepiri-platform',
+        'git clone https://github.com/Team-Deepiri/deepiri-control-plane.git',
+        'cd deepiri-control-plane',
         'git submodule update --init --recursive',
         '# AI team stack (recommended):',
         'cd team_dev_environments/ai-team',
         './build.sh && ./start.sh',
-        '# Or Cyrex services only from platform root:',
+        '# Or Cyrex services only from control plane root:',
         'cd ../..',
         'docker compose -f docker-compose.dev.yml up -d postgres redis influxdb etcd minio milvus cyrex cyrex-interface ollama synapse synapse-sugar-glider',
         '# Local Cyrex dev (separate repo):',
@@ -78,69 +81,9 @@ export const toolsCatalog: ToolEntry[] = [
     },
   },
   {
-    slug: 'helox',
-    name: 'Helox',
-    tagline: 'Model fine-tuning and model versioning framework.',
-    repo: 'Team-Deepiri/deepiri-platform',
-    installMode: 'terminal',
-    tags: ['CLI', 'Platform', 'AI/ML'],
-    researchLink: true,
-    terminal: {
-      type: 'commands',
-      prerequisites: ['Git', 'Python 3.10+', 'Poetry', 'Docker (for platform stack)'],
-      commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-platform.git',
-        'cd deepiri-platform',
-        'git submodule update --init diri-helox',
-        'cd diri-helox',
-        'poetry install',
-      ],
-      verifyCommand: 'poetry run python -c "import helox; print(\'ok\')"',
-    },
-  },
-  {
-    slug: 'agent-toolbox',
-    name: 'Agent Toolbox',
-    tagline: 'Toolkit for building, testing, and deploying Deepiri AI agents.',
-    repo: 'Team-Deepiri/diri-agent-toolbox',
-    installMode: 'terminal',
-    tags: ['CLI', 'Tools'],
-    terminal: {
-      ...curlInstall('Team-Deepiri/diri-agent-toolbox'),
-      prerequisites: ['Git', 'Python 3.11+', 'Bash'],
-      verifyCommand: 'python3 -c "import diri_agent_toolbox; print(\'ok\')"',
-    },
-  },
-  {
-    slug: 'training-orchestrator',
-    name: 'Training Orchestrator',
-    tagline: 'Orchestrate distributed ML training jobs across clusters and GPUs.',
-    repo: 'Team-Deepiri/deepiri-training-orchestrator',
-    installMode: 'terminal',
-    tags: ['CLI', 'AI/ML', 'Infrastructure'],
-    terminal: {
-      ...curlInstall('Team-Deepiri/deepiri-training-orchestrator'),
-      prerequisites: ['Git', 'Python 3.10+ (<3.14)', 'Poetry (optional)', 'Bash'],
-      verifyCommand: 'python3 -c "import deepiri_training_orchestrator; print(\'ok\')"',
-    },
-  },
-  {
-    slug: 'dataset-processor',
-    name: 'Dataset Processor',
-    tagline: 'Preprocess, transform, and version datasets for ML pipelines.',
-    repo: 'Team-Deepiri/deepiri-dataset-processor',
-    installMode: 'terminal',
-    tags: ['CLI', 'Data', 'AI/ML'],
-    terminal: {
-      ...curlInstall('Team-Deepiri/deepiri-dataset-processor'),
-      prerequisites: ['Git', 'Python 3.11+', 'Bash'],
-      verifyCommand: 'python3 -c "import deepiri_dataset_processor; print(\'ok\')"',
-    },
-  },
-  {
     slug: 'emotion',
     name: 'Deepiri Emotion',
-    tagline: 'AI-powered development environment with context-aware chat and Cyrex integrations.',
+    tagline: 'Desktop IDE and terminal agent for coding—streaming models, tool use, MCP support, and checkpoints with no backend required.',
     repo: 'Team-Deepiri/deepiri-emotion',
     installMode: 'both',
     tags: ['CLI', 'Desktop', 'HCI'],
@@ -169,43 +112,54 @@ export const toolsCatalog: ToolEntry[] = [
     },
   },
   {
-    slug: 'memorymesh',
-    name: 'MemoryMesh',
-    tagline: 'Distributed memory layer for long-context AI agents and RAG systems.',
-    repo: 'Team-Deepiri/deepiri-memorymesh',
+    slug: 'uqe',
+    name: 'Universal Quantum Engine',
+    tagline:
+      'Deepiri Quantum Engine lab—QUASAR compiles circuits, DQP runs them locally, and MAPA bridges wire quantum workloads into PyTorch with optional IBM or IonQ shadow export.',
+    repo: 'Team-Deepiri/deepiri-uqe',
     installMode: 'terminal',
-    tags: ['CLI', 'AI/ML', 'Infrastructure'],
+    tags: ['CLI', 'AI/ML'],
+    researchLink: true,
     terminal: {
-      ...curlInstall('Team-Deepiri/deepiri-memorymesh'),
-      prerequisites: ['Git', 'Python 3.10+', 'Bash', '~/.local/bin on PATH'],
-      verifyCommand: 'memorymesh --help',
+      type: 'commands',
+      prerequisites: ['Git', 'Python 3.10+', 'pip or Poetry', 'Docker (optional, for Jupyter lab)'],
+      commands: [
+        'git clone https://github.com/Team-Deepiri/deepiri-uqe.git',
+        'cd deepiri-uqe',
+        'pip install -r requirements.txt',
+        '# Or with Poetry:',
+        '# poetry install',
+        '# Or JupyterLab in Docker:',
+        '# cd docker && docker compose up uqe-lab',
+        '# Open http://localhost:8888',
+      ],
+      verifyCommand: 'pytest tests/ -v',
     },
   },
   {
-    slug: 'zepgpu',
-    name: 'ZepGPU',
-    tagline: 'GPU detection, scheduling, and acceleration utilities for Deepiri workloads.',
-    repo: 'Team-Deepiri/deepiri-zepgpu',
+    slug: 'topolsea',
+    name: 'Topolsea',
+    tagline: 'Rust vector engine for approximate nearest-neighbor search with HNSW and fractal indexes, plus a Python client for embeddings.',
+    repo: 'Team-Deepiri/deepiri-topolsea',
     installMode: 'terminal',
-    tags: ['CLI', 'Infrastructure'],
+    tags: ['CLI', 'AI/ML', 'Infrastructure'],
     terminal: {
       type: 'commands',
-      prerequisites: ['Git', 'Docker & Docker Compose v2', 'NVIDIA Container Toolkit (optional, for GPU tasks)'],
+      prerequisites: ['Git', 'Rust toolchain', 'Python 3.10+', 'Poetry'],
       commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-zepgpu.git',
-        'cd deepiri-zepgpu',
-        'docker compose -f docker/docker-compose.yml up -d --build',
-        'docker compose -f docker/docker-compose.yml ps',
-        '# Optional local Python dev (requires PostgreSQL + Redis):',
-        '# poetry install && poetry run uvicorn deepiri_zepgpu.api.server.main:app --reload',
+        'git clone https://github.com/Team-Deepiri/deepiri-topolsea.git',
+        'cd deepiri-topolsea',
+        'cargo build --release',
+        'poetry install',
+        'poetry run pytest',
       ],
-      verifyCommand: 'curl -s http://localhost:8000/api/v1/health',
+      verifyCommand: 'cargo run --release -p dv-cli -- --help',
     },
   },
   {
     slug: 'renderflow',
     name: 'Renderflow Studio',
-    tagline: 'Creative rendering studio for real-time visual pipelines and media workflows.',
+    tagline: 'Native desktop studio for timeline editing, compositing, and Vulkan rendering, with an optional AI orchestrator alongside full manual control.',
     repo: 'Team-Deepiri/deepiri-renderflow-studio',
     installMode: 'both',
     tags: ['CLI', 'Desktop', 'Media'],
@@ -251,9 +205,68 @@ export const toolsCatalog: ToolEntry[] = [
     },
   },
   {
+    slug: 'zepgpu',
+    name: 'ZepGPU',
+    tagline: 'Serverless GPU framework that queues Python jobs, runs them in isolated containers, and exposes scheduling, pipelines, and live metrics.',
+    repo: 'Team-Deepiri/deepiri-zepgpu',
+    installMode: 'terminal',
+    tags: ['CLI', 'Infrastructure'],
+    terminal: {
+      type: 'commands',
+      prerequisites: ['Git', 'Docker & Docker Compose v2', 'NVIDIA Container Toolkit (optional, for GPU tasks)'],
+      commands: [
+        'git clone https://github.com/Team-Deepiri/deepiri-zepgpu.git',
+        'cd deepiri-zepgpu',
+        'docker compose -f docker/docker-compose.yml up -d --build',
+        'docker compose -f docker/docker-compose.yml ps',
+        '# Optional local Python dev (requires PostgreSQL + Redis):',
+        '# poetry install && poetry run uvicorn deepiri_zepgpu.api.server.main:app --reload',
+      ],
+      verifyCommand: 'curl -s http://localhost:8000/api/v1/health',
+    },
+  },
+  {
+    slug: 'mudspeed',
+    name: 'Mudspeed',
+    tagline:
+      'Captures CUDA, ROCm, and MPS kernel traces, trains Neural ODE surrogates, and emulates GPU workloads through a fidelity router with API, UI, and MLflow.',
+    repo: 'Team-Deepiri/deepiri-mudspeed',
+    installMode: 'terminal',
+    tags: ['CLI', 'AI/ML', 'Infrastructure'],
+    terminal: {
+      type: 'commands',
+      prerequisites: [
+        'Git',
+        'Bash',
+        'Python 3.11+',
+        'PyTorch 2.2+',
+        'NVIDIA CUDA, AMD ROCm, or Apple Silicon (optional)',
+      ],
+      commandsByOs: {
+        linux: [
+          'git clone https://github.com/Team-Deepiri/deepiri-mudspeed.git',
+          'cd deepiri-mudspeed',
+          '# NVIDIA CUDA (optional): pip install torch --index-url https://download.pytorch.org/whl/cu121',
+          'bash .setup.sh',
+          'bash .train.sh --quick',
+          'bash .benchmark.sh',
+        ],
+        mac: [
+          'git clone https://github.com/Team-Deepiri/deepiri-mudspeed.git',
+          'cd deepiri-mudspeed',
+          '# Apple Silicon uses MPS; CPU-only works without extra PyTorch wheels',
+          'bash .setup.sh',
+          'bash .train.sh --quick',
+          'bash .benchmark.sh',
+        ],
+      },
+      verifyCommand: 'bash .benchmark.sh',
+    },
+  },
+  {
     slug: 'fuselk',
     name: 'Fuselk',
-    tagline: 'JAX-accelerated tokamak simulator with hierarchical RL control.',
+    tagline: 'JAX tokamak simulator that models plasma behavior and trains control policies to manage ELMs, disruptions, and fuel breeding.',
     repo: 'Team-Deepiri/deepiri-fuselk',
     installMode: 'desktop',
     tags: ['Desktop', 'Platform'],
@@ -269,9 +282,277 @@ export const toolsCatalog: ToolEntry[] = [
     },
   },
   {
+    slug: 'aarflingo',
+    name: 'Aarflingo',
+    tagline: 'Forecasts canine intent from live webcam video, captures human feedback, and retrains models for studio and edge deployment.',
+    repo: 'Team-Deepiri/deepiri-aarflingo',
+    installMode: 'terminal',
+    tags: ['CLI', 'AI/ML', 'Data'],
+    terminal: {
+      type: 'commands',
+      prerequisites: ['Git', 'Bash', 'Python 3.10+', 'Node.js 18+ (for Electron studio)'],
+      commandsByOs: {
+        linux: [
+          'git clone https://github.com/Team-Deepiri/deepiri-aarflingo.git',
+          'cd deepiri-aarflingo',
+          '# setup.sh installs apt packages on Debian/Ubuntu',
+          './setup.sh --run',
+        ],
+        mac: [
+          'git clone https://github.com/Team-Deepiri/deepiri-aarflingo.git',
+          'cd deepiri-aarflingo',
+          '# Install Homebrew deps if prompted, then build + launch:',
+          './setup.sh --run',
+        ],
+      },
+      verifyCommand: 'curl -s http://127.0.0.1:8765/health',
+    },
+  },
+  {
+    slug: 'memorymesh',
+    name: 'MemoryMesh',
+    tagline: 'Local-first memory store for agents with semantic recall, CLI and HTTP access, and optional encryption—no hosted service.',
+    repo: 'Team-Deepiri/deepiri-memorymesh',
+    installMode: 'terminal',
+    tags: ['CLI', 'AI/ML', 'Infrastructure'],
+    terminal: {
+      ...curlInstall('Team-Deepiri/deepiri-memorymesh'),
+      prerequisites: ['Git', 'Python 3.10+', 'Bash', '~/.local/bin on PATH'],
+      verifyCommand: 'memorymesh --help',
+    },
+  },
+  {
+    slug: 'polylogue',
+    name: 'Polylogue',
+    tagline: 'Filesystem journal that keeps multiple LLM sessions in sync through shared logs, context files, and paste-ready sync packs.',
+    repo: 'Team-Deepiri/deepiri-polylogue',
+    installMode: 'terminal',
+    tags: ['CLI', 'AI/ML'],
+    terminal: {
+      ...curlInstall('Team-Deepiri/deepiri-polylogue'),
+      prerequisites: ['Git', 'Python 3.10+', 'Bash', '~/.local/bin on PATH'],
+      verifyCommand: 'deepiri-polylogue --version',
+    },
+  },
+  {
+    slug: 'calliope',
+    name: 'Calliope',
+    tagline: 'Dockerized music studio that routes prompts to local or cloud models for composition, arrangement, and groove planning.',
+    repo: 'Team-Deepiri/deepiri-calliope',
+    installMode: 'desktop',
+    tags: ['Desktop', 'AI/ML', 'HCI'],
+    desktop: {
+      productName: 'Calliope',
+      releaseRepo: 'Team-Deepiri/deepiri-calliope',
+      comingSoon: true,
+      prerequisites: [
+        'Docker Desktop (or Docker Engine on Linux)',
+        'Ollama with `ollama pull mistral`',
+        'Optional: cloud API key (OpenAI, Anthropic, OpenRouter, or Gemini)',
+        '~2 GB disk for images and models',
+      ],
+      assets: {
+        mac: 'Calliope-latest.dmg',
+        linux: 'Calliope-latest.AppImage',
+        windows: 'Calliope-latest-setup.exe',
+      },
+    },
+  },
+  {
+    slug: 'tombstone',
+    name: 'Tombstone',
+    tagline: 'Post-training evaluation harness that drives parallel benchmark runs against local Ollama through a vintage B-language pipeline.',
+    repo: 'Team-Deepiri/deepiri-tombstone',
+    installMode: 'terminal',
+    tags: ['CLI', 'AI/ML', 'Infrastructure'],
+    terminal: {
+      type: 'commands',
+      prerequisites: ['Git', 'Bash', 'Docker', 'C build toolchain (installed by setup.sh)'],
+      commands: [
+        'git clone https://github.com/Team-Deepiri/deepiri-tombstone.git',
+        'cd deepiri-tombstone',
+        './setup.sh',
+        './deepiri-tombstone ping',
+        './deepiri-tombstone ask llama3.2 "Say hello in one word"',
+        '# Run fixture eval suite:',
+        '# ./deepiri-tombstone eval llama3.2',
+      ],
+      verifyCommand: './deepiri-tombstone ping',
+    },
+  },
+  {
+    slug: 'control-plane',
+    name: 'Control Plane',
+    tagline:
+      'Local Docker monorepo for the full Deepiri dev stack—gateway, Cyrex, Synapse, Milvus, and team-scoped service catalogs. Use deepiri-platform for the cloud VPS.',
+    repo: 'Team-Deepiri/deepiri-control-plane',
+    installMode: 'terminal',
+    tags: ['CLI', 'Platform', 'Infrastructure'],
+    researchLink: true,
+    terminal: {
+      type: 'commands',
+      prerequisites: [
+        'Docker & Docker Compose',
+        'Git',
+        '8GB+ RAM recommended',
+        'Windows: WSL2 with a Debian-based distro',
+      ],
+      commands: [
+        'git clone https://github.com/Team-Deepiri/deepiri-control-plane.git',
+        'cd deepiri-control-plane',
+        'bash setup-deepiri-dev.sh',
+        '# Or start the full dev stack directly:',
+        'docker compose -f docker-compose.dev.yml up -d',
+        '# Team workflow (example: AI team):',
+        './setup-deepiri-dev.sh pull ai-team',
+        './setup-deepiri-dev.sh build ai-team',
+        './setup-deepiri-dev.sh start ai-team',
+        '# Frontend: http://localhost:5173  Gateway: http://localhost:5100  Cyrex: http://localhost:8000',
+      ],
+      verifyCommand: 'docker compose -f docker-compose.dev.yml ps',
+    },
+  },
+  {
+    slug: 'gpu-utils',
+    name: 'GPU Utils Library',
+    tagline: 'Detects NVIDIA, AMD, and Apple GPUs and outputs Docker build hints, health checks, and Ollama model-fit recommendations.',
+    repo: 'Team-Deepiri/deepiri-gpu-utils',
+    installMode: 'terminal',
+    tags: ['CLI', 'Library', 'Infrastructure'],
+    terminal: {
+      ...curlInstall('Team-Deepiri/deepiri-gpu-utils'),
+      prerequisites: ['Git', 'Python 3.11+', 'Bash', '~/.local/bin on PATH'],
+      verifyCommand: 'deepiri-gpu detect --json',
+    },
+  },
+  {
+    slug: 'ollama-utils',
+    name: 'Ollama Utils Library',
+    tagline: 'Checks Ollama health, verifies installed models, and sizes model pulls against hardware detected by deepiri-gpu-utils.',
+    repo: 'Team-Deepiri/deepiri-ollama-utils',
+    installMode: 'terminal',
+    tags: ['CLI', 'Library', 'AI/ML', 'Tools'],
+    terminal: {
+      ...curlInstall('Team-Deepiri/deepiri-ollama-utils'),
+      prerequisites: ['Git', 'Python 3.9+', 'Ollama running (for verify)', 'Bash', '~/.local/bin on PATH'],
+      verifyCommand: 'deepiri-ollama-utils check',
+    },
+    package: {
+      label: 'Python wheel',
+      releaseRepo: 'Team-Deepiri/deepiri-ollama-utils',
+      asset: 'deepiri_ollama_utils-0.1.0-py3-none-any.whl',
+      fallbackCommands: [
+        'pip install https://github.com/Team-Deepiri/deepiri-ollama-utils/releases/latest/download/deepiri_ollama_utils-0.1.0-py3-none-any.whl',
+        '# Or from source:',
+        'pip install git+https://github.com/Team-Deepiri/deepiri-ollama-utils.git',
+      ],
+    },
+  },
+  {
+    slug: 'dataset-processor',
+    name: 'Dataset Processor Library',
+    tagline: 'Cleans and deduplicates training text, flags data leakage, versions datasets, and builds manifests for ML pipelines.',
+    repo: 'Team-Deepiri/deepiri-dataset-processor',
+    installMode: 'terminal',
+    tags: ['CLI', 'Library', 'Data', 'AI/ML'],
+    terminal: {
+      ...curlInstall('Team-Deepiri/deepiri-dataset-processor'),
+      prerequisites: ['Git', 'Python 3.11+', 'Bash'],
+      verifyCommand: 'python3 -c "import deepiri_dataset_processor; print(\'ok\')"',
+    },
+  },
+  {
+    slug: 'training-orchestrator',
+    name: 'Training Orchestrator Library',
+    tagline: 'Adds reproducible seeds, experiment tracking, and a callback training loop that works with any ML framework you plug in.',
+    repo: 'Team-Deepiri/deepiri-training-orchestrator',
+    installMode: 'terminal',
+    tags: ['CLI', 'Library', 'AI/ML', 'Infrastructure'],
+    terminal: {
+      ...curlInstall('Team-Deepiri/deepiri-training-orchestrator'),
+      prerequisites: ['Git', 'Python 3.10+ (<3.14)', 'Poetry (optional)', 'Bash'],
+      verifyCommand: 'python3 -c "import deepiri_training_orchestrator; print(\'ok\')"',
+    },
+  },
+  {
+    slug: 'prismpipe',
+    name: 'Prismpipe Library',
+    tagline: 'Routes API requests through composable nodes and reuses prior computations so identical work is not repeated.',
+    repo: 'Team-Deepiri/deepiri-prismpipe',
+    installMode: 'terminal',
+    tags: ['CLI', 'Library', 'Platform', 'Infrastructure'],
+    researchLink: true,
+    terminal: {
+      ...curlInstall('Team-Deepiri/deepiri-prismpipe'),
+      prerequisites: ['Git', 'Python 3.11+', 'Poetry (optional)', 'Bash'],
+      verifyCommand: 'python3 -c "import prismpipe; print(\'ok\')"',
+    },
+  },
+  {
+    slug: 'agent-guardrails',
+    name: 'Agent Guardrails Library',
+    tagline: 'Validates agent prompts and outputs for injection, PII, and policy violations before models act on them.',
+    repo: 'Team-Deepiri/diri-agent-guardrails',
+    installMode: 'terminal',
+    tags: ['CLI', 'Library', 'Ethics', 'AI/ML'],
+    terminal: {
+      ...curlInstall('Team-Deepiri/diri-agent-guardrails'),
+      prerequisites: ['Git', 'Python 3.10+', 'Poetry (optional)', 'Bash'],
+      verifyCommand: 'python3 -c "import diri_agent_guardrails; print(\'ok\')"',
+    },
+  },
+  {
+    slug: 'wooven',
+    name: 'Wooven Credentials Helper',
+    tagline: 'Stores Git credentials in your OS keyring and picks SSH or HTTPS when cloning across machines.',
+    repo: 'Team-Deepiri/deepiri-wooven',
+    installMode: 'terminal',
+    productKind: 'helper',
+    tags: ['CLI', 'Helper', 'Platform'],
+    terminal: {
+      ...curlInstall('Team-Deepiri/deepiri-wooven'),
+      prerequisites: ['Git', 'Python 3.10+', 'Bash', '~/.local/bin on PATH'],
+      verifyCommand: 'deepiri-wooven --version && deepiri-wooven service status',
+    },
+  },
+  {
+    slug: 'helox',
+    name: 'Helox',
+    tagline: 'Training-side ML factory for fine-tuning, dataset versioning, and experiment tracking—exports models for Cyrex to serve.',
+    repo: 'Team-Deepiri/diri-helox',
+    installMode: 'terminal',
+    tags: ['CLI', 'Platform', 'AI/ML'],
+    researchLink: true,
+    terminal: {
+      type: 'commands',
+      prerequisites: ['Git', 'Python 3.10+', 'Poetry', 'Docker (for control plane stack)'],
+      commands: [
+        'git clone https://github.com/Team-Deepiri/deepiri-control-plane.git',
+        'cd deepiri-control-plane',
+        'git submodule update --init diri-helox',
+        'cd diri-helox',
+        'poetry install',
+      ],
+      verifyCommand: 'poetry run python -c "import helox; print(\'ok\')"',
+    },
+  },
+  {
+    slug: 'agent-toolbox',
+    name: 'Agent Toolbox',
+    tagline: 'Typed agent tools for HTTP, sandboxed files, calendars, and CRM APIs—ready to wire into Cyrex or other runtimes.',
+    repo: 'Team-Deepiri/diri-agent-toolbox',
+    installMode: 'terminal',
+    tags: ['CLI', 'Tools'],
+    terminal: {
+      ...curlInstall('Team-Deepiri/diri-agent-toolbox'),
+      prerequisites: ['Git', 'Python 3.11+', 'Bash'],
+      verifyCommand: 'python3 -c "import diri_agent_toolbox; print(\'ok\')"',
+    },
+  },
+  {
     slug: 'egottol',
     name: 'Egottol',
-    tagline: 'Analog SPICE and VHDL simulation lab with GPU-accelerated analysis.',
+    tagline: 'Mixed-signal lab combining SPICE analog solvers, event-driven digital logic, VHDL blocks, and GPU-accelerated sweeps.',
     repo: 'Team-Deepiri/deepiri-egottol',
     installMode: 'both',
     tags: ['CLI', 'Desktop', 'HCI'],
@@ -313,229 +594,9 @@ export const toolsCatalog: ToolEntry[] = [
     },
   },
   {
-    slug: 'gpu-utils',
-    name: 'GPU Utils',
-    tagline: 'CLI utilities for GPU health checks, profiling, and driver diagnostics.',
-    repo: 'Team-Deepiri/deepiri-gpu-utils',
-    installMode: 'terminal',
-    tags: ['CLI', 'Infrastructure'],
-    terminal: {
-      ...curlInstall('Team-Deepiri/deepiri-gpu-utils'),
-      prerequisites: ['Git', 'Python 3.11+', 'Bash', '~/.local/bin on PATH'],
-      verifyCommand: 'deepiri-gpu detect --json',
-    },
-  },
-  {
-    slug: 'calliope',
-    name: 'Calliope',
-    tagline: 'Local-first AI music studio stack with FastAPI backend, Vite React UI, PostgreSQL, and Ollama.',
-    repo: 'Team-Deepiri/deepiri-calliope',
-    installMode: 'desktop',
-    tags: ['Desktop', 'AI/ML', 'HCI'],
-    desktop: {
-      productName: 'Calliope',
-      releaseRepo: 'Team-Deepiri/deepiri-calliope',
-      comingSoon: true,
-      prerequisites: [
-        'Docker Desktop (or Docker Engine on Linux)',
-        'Ollama with `ollama pull mistral`',
-        'Optional: cloud API key (OpenAI, Anthropic, OpenRouter, or Gemini)',
-        '~2 GB disk for images and models',
-      ],
-      assets: {
-        mac: 'Calliope-latest.dmg',
-        linux: 'Calliope-latest.AppImage',
-        windows: 'Calliope-latest-setup.exe',
-      },
-    },
-  },
-  {
-    slug: 'polylogue',
-    name: 'Polylogue',
-    tagline: 'Filesystem-first shared LLM Streaming Journal Network (SJN).',
-    repo: 'Team-Deepiri/deepiri-polylogue',
-    installMode: 'terminal',
-    tags: ['CLI', 'AI/ML'],
-    terminal: {
-      ...curlInstall('Team-Deepiri/deepiri-polylogue'),
-      prerequisites: ['Git', 'Python 3.10+', 'Bash', '~/.local/bin on PATH'],
-      verifyCommand: 'deepiri-polylogue --version',
-    },
-  },
-  {
-    slug: 'prismpipe',
-    name: 'Prismpipe',
-    tagline: 'Capability-routed, self-improving API computation pipelines.',
-    repo: 'Team-Deepiri/deepiri-prismpipe',
-    installMode: 'terminal',
-    tags: ['CLI', 'Platform', 'Infrastructure'],
-    researchLink: true,
-    terminal: {
-      ...curlInstall('Team-Deepiri/deepiri-prismpipe'),
-      prerequisites: ['Git', 'Python 3.11+', 'Poetry (optional)', 'Bash'],
-      verifyCommand: 'python3 -c "import prismpipe; print(\'ok\')"',
-    },
-  },
-  {
-    slug: 'mudspeed',
-    name: 'Mudspeed',
-    tagline: 'Hybrid GPU emulator with Neural ODE acceleration, achieving 10-1000x speedup over cycle-accurate simulators.',
-    repo: 'Team-Deepiri/deepiri-mudspeed',
-    installMode: 'terminal',
-    tags: ['CLI', 'AI/ML', 'Infrastructure'],
-    terminal: {
-      type: 'commands',
-      prerequisites: [
-        'Git',
-        'Bash',
-        'Python 3.11+',
-        'PyTorch 2.2+',
-        'NVIDIA CUDA, AMD ROCm, or Apple Silicon (optional)',
-      ],
-      commandsByOs: {
-        linux: [
-          'git clone https://github.com/Team-Deepiri/deepiri-mudspeed.git',
-          'cd deepiri-mudspeed',
-          '# NVIDIA CUDA (optional): pip install torch --index-url https://download.pytorch.org/whl/cu121',
-          'bash .setup.sh',
-          'bash .train.sh --quick',
-          'bash .benchmark.sh',
-        ],
-        mac: [
-          'git clone https://github.com/Team-Deepiri/deepiri-mudspeed.git',
-          'cd deepiri-mudspeed',
-          '# Apple Silicon uses MPS; CPU-only works without extra PyTorch wheels',
-          'bash .setup.sh',
-          'bash .train.sh --quick',
-          'bash .benchmark.sh',
-        ],
-      },
-      verifyCommand: 'bash .benchmark.sh',
-    },
-  },
-  {
-    slug: 'topolsea',
-    name: 'Topolsea',
-    tagline: 'SIMD-accelerated GraphANN vector database.',
-    repo: 'Team-Deepiri/deepiri-topolsea',
-    installMode: 'terminal',
-    tags: ['CLI', 'AI/ML', 'Infrastructure'],
-    terminal: {
-      type: 'commands',
-      prerequisites: ['Git', 'Rust toolchain', 'Python 3.10+', 'Poetry'],
-      commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-topolsea.git',
-        'cd deepiri-topolsea',
-        'cargo build --release',
-        'poetry install',
-        'poetry run pytest',
-      ],
-      verifyCommand: 'cargo run --release -p dv-cli -- --help',
-    },
-  },
-  {
-    slug: 'uqe',
-    name: 'Universal Quantum Engine',
-    tagline: 'Research-ready quantum experimentation lab for simulation, algorithm reinvention, and hybrid quantum-classical AI.',
-    repo: 'Team-Deepiri/deepiri-uqe',
-    installMode: 'terminal',
-    tags: ['CLI', 'AI/ML'],
-    researchLink: true,
-    terminal: {
-      type: 'commands',
-      prerequisites: ['Git', 'Python 3.10+', 'pip or Poetry', 'Docker (optional, for Jupyter lab)'],
-      commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-uqe.git',
-        'cd deepiri-uqe',
-        'pip install -r requirements.txt',
-        '# Or with Poetry:',
-        '# poetry install',
-        '# Or JupyterLab in Docker:',
-        '# cd docker && docker compose up uqe-lab',
-        '# Open http://localhost:8888',
-      ],
-      verifyCommand: 'pytest tests/ -v',
-    },
-  },
-  {
-    slug: 'agent-guardrails',
-    name: 'Agent Guardrails',
-    tagline: 'Safety and policy guardrails for autonomous AI agent behavior.',
-    repo: 'Team-Deepiri/diri-agent-guardrails',
-    installMode: 'terminal',
-    tags: ['CLI', 'Ethics', 'AI/ML'],
-    terminal: {
-      ...curlInstall('Team-Deepiri/diri-agent-guardrails'),
-      prerequisites: ['Git', 'Python 3.10+', 'Poetry (optional)', 'Bash'],
-      verifyCommand: 'python3 -c "import diri_agent_guardrails; print(\'ok\')"',
-    },
-  },
-  {
-    slug: 'aarflingo',
-    name: 'Aarflingo',
-    tagline: 'Language intelligence toolkit for parsing, analysis, and linguistic pipelines.',
-    repo: 'Team-Deepiri/deepiri-aarflingo',
-    installMode: 'terminal',
-    tags: ['CLI', 'AI/ML', 'Data'],
-    terminal: {
-      type: 'commands',
-      prerequisites: ['Git', 'Bash', 'Python 3.10+', 'Node.js 18+ (for Electron studio)'],
-      commandsByOs: {
-        linux: [
-          'git clone https://github.com/Team-Deepiri/deepiri-aarflingo.git',
-          'cd deepiri-aarflingo',
-          '# setup.sh installs apt packages on Debian/Ubuntu',
-          './setup.sh --run',
-        ],
-        mac: [
-          'git clone https://github.com/Team-Deepiri/deepiri-aarflingo.git',
-          'cd deepiri-aarflingo',
-          '# Install Homebrew deps if prompted, then build + launch:',
-          './setup.sh --run',
-        ],
-      },
-      verifyCommand: 'curl -s http://127.0.0.1:8765/health',
-    },
-  },
-  {
-    slug: 'wooven',
-    name: 'Wooven',
-    tagline: 'Credentials manager tool.',
-    repo: 'Team-Deepiri/deepiri-wooven',
-    installMode: 'terminal',
-    tags: ['CLI', 'Platform'],
-    terminal: {
-      ...curlInstall('Team-Deepiri/deepiri-wooven'),
-      prerequisites: ['Git', 'Python 3.10+', 'Bash', '~/.local/bin on PATH'],
-      verifyCommand: 'deepiri-wooven --version && deepiri-wooven service status',
-    },
-  },
-  {
-    slug: 'tombstone',
-    name: 'Tombstone',
-    tagline: 'Post-training eval harness — vintage-language pipeline stages with local Ollama in Docker.',
-    repo: 'Team-Deepiri/deepiri-tombstone',
-    installMode: 'terminal',
-    tags: ['CLI', 'AI/ML', 'Infrastructure'],
-    terminal: {
-      type: 'commands',
-      prerequisites: ['Git', 'Bash', 'Docker', 'C build toolchain (installed by setup.sh)'],
-      commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-tombstone.git',
-        'cd deepiri-tombstone',
-        './setup.sh',
-        './deepiri-tombstone ping',
-        './deepiri-tombstone ask llama3.2 "Say hello in one word"',
-        '# Run fixture eval suite:',
-        '# ./deepiri-tombstone eval llama3.2',
-      ],
-      verifyCommand: './deepiri-tombstone ping',
-    },
-  },
-  {
     slug: 'voxier',
     name: 'Voxier',
-    tagline: 'Godot-based game project by Deepiri.',
+    tagline: 'Godot toolkit for building arcade games—includes Fox Rocket, terminal-style pilots, and shader-driven sector backgrounds.',
     repo: 'Team-Deepiri/deepiri-voxier',
     installMode: 'desktop',
     tags: ['Desktop', 'Media', 'HCI'],
@@ -550,60 +611,39 @@ export const toolsCatalog: ToolEntry[] = [
       },
     },
   },
-  {
-    slug: 'ollama-utils',
-    name: 'Ollama Utils',
-    tagline: 'Utilities for managing Ollama models, wheels, and local inference stacks.',
-    repo: 'Team-Deepiri/deepiri-ollama-utils',
-    installMode: 'terminal',
-    tags: ['CLI', 'AI/ML', 'Tools'],
-    terminal: {
-      ...curlInstall('Team-Deepiri/deepiri-ollama-utils'),
-      prerequisites: ['Git', 'Python 3.9+', 'Ollama running (for verify)', 'Bash', '~/.local/bin on PATH'],
-      verifyCommand: 'deepiri-ollama-utils check',
-    },
-    package: {
-      label: 'Python wheel',
-      releaseRepo: 'Team-Deepiri/deepiri-ollama-utils',
-      asset: 'deepiri_ollama_utils-0.1.0-py3-none-any.whl',
-      fallbackCommands: [
-        'pip install https://github.com/Team-Deepiri/deepiri-ollama-utils/releases/latest/download/deepiri_ollama_utils-0.1.0-py3-none-any.whl',
-        '# Or from source:',
-        'pip install git+https://github.com/Team-Deepiri/deepiri-ollama-utils.git',
-      ],
-    },
-  },
-  {
-    slug: 'platform',
-    name: 'Deepiri Platform',
-    tagline: 'Main Deepiri monolith repository.',
-    repo: 'Team-Deepiri/deepiri-platform',
-    installMode: 'terminal',
-    tags: ['CLI', 'Platform', 'Infrastructure'],
-    researchLink: true,
-    terminal: {
-      type: 'commands',
-      prerequisites: ['Docker & Docker Compose v2', 'Git', '8GB+ RAM recommended'],
-      commands: [
-        'git clone https://github.com/Team-Deepiri/deepiri-platform.git',
-        'cd deepiri-platform',
-        'git submodule update --init --recursive',
-        'docker compose -f docker-compose.dev.yml up -d',
-        'docker compose -f docker-compose.dev.yml ps',
-        '# Frontend: http://localhost:5173  API Gateway: http://localhost:5100  Cyrex: http://localhost:8000',
-      ],
-      verifyCommand: 'docker compose -f docker-compose.dev.yml ps',
-    },
-  },
 ];
 
 export const TOOL_SLUGS = toolsCatalog.map((t) => t.slug);
+
+/** Featured top-row layout: Cyrex+UQE, then Topolsea+Emotion. */
+const TOOLS_HUB_FEATURED_ORDER = ['cyrex', 'uqe', 'topolsea', 'emotion'] as const;
+
+const catalogOrder = new Map(toolsCatalog.map((tool, index) => [tool.slug, index]));
+
+export function sortToolsForHubDisplay(tools: ToolEntry[]): ToolEntry[] {
+  const featuredRank = new Map<string, number>(
+    TOOLS_HUB_FEATURED_ORDER.map((slug, index) => [slug, index]),
+  );
+
+  return [...tools].sort((a, b) => {
+    const aFeatured = featuredRank.get(a.slug);
+    const bFeatured = featuredRank.get(b.slug);
+
+    if (aFeatured !== undefined && bFeatured !== undefined) {
+      return aFeatured - bFeatured;
+    }
+    if (aFeatured !== undefined) return -1;
+    if (bFeatured !== undefined) return 1;
+
+    return (catalogOrder.get(a.slug) ?? 0) - (catalogOrder.get(b.slug) ?? 0);
+  });
+}
 
 export function getToolBySlug(slug: string): ToolEntry | undefined {
   return toolsCatalog.find((t) => t.slug === slug);
 }
 
-export type ToolFilter = 'all' | 'cli' | 'desktop' | 'platform';
+export type ToolFilter = 'all' | 'cli' | 'desktop' | 'platform' | 'library';
 
 export function filterTools(filter: ToolFilter): ToolEntry[] {
   switch (filter) {
@@ -617,6 +657,8 @@ export function filterTools(filter: ToolFilter): ToolEntry[] {
       );
     case 'platform':
       return toolsCatalog.filter((t) => t.tags.includes('Platform'));
+    case 'library':
+      return toolsCatalog.filter((t) => t.tags.includes('Library'));
     default:
       return toolsCatalog;
   }
@@ -631,4 +673,9 @@ export function installModeLabel(mode: InstallMode): string {
     case 'both':
       return 'CLI + Desktop';
   }
+}
+
+export function toolBadgeLabel(tool: Pick<ToolEntry, 'installMode' | 'productKind'>): string {
+  if (tool.productKind === 'helper') return 'Helper';
+  return installModeLabel(tool.installMode);
 }
