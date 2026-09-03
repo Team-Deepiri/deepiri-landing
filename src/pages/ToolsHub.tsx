@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import ToolCard from '../components/tools/ToolCard';
 import {
   filterTools,
+  sortToolsForHubDisplay,
   type ToolFilter,
 } from '../data/toolsCatalog';
 import './ToolsHub.css';
@@ -12,12 +13,13 @@ const FILTERS: { id: ToolFilter; label: string }[] = [
   { id: 'all', label: 'All' },
   { id: 'cli', label: 'CLI' },
   { id: 'desktop', label: 'Desktop' },
+  { id: 'library', label: 'Library' },
   { id: 'platform', label: 'Platform' },
 ];
 
 function ToolsHub() {
   const [activeFilter, setActiveFilter] = useState<ToolFilter>('all');
-  const tools = filterTools(activeFilter);
+  const tools = sortToolsForHubDisplay(filterTools(activeFilter));
 
   useEffect(() => {
     document.title = 'Tools - Deepiri';
