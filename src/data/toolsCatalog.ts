@@ -55,7 +55,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'cyrex',
     name: 'Cyrex',
-    tagline: 'Cyrex agentic runtime framework.',
+    tagline: 'Runs the platform AI service—agent chat, document intelligence, RAG search, and multi-step workflows behind one API.',
     repo: 'Team-Deepiri/diri-cyrex',
     installMode: 'terminal',
     tags: ['CLI', 'Platform', 'AI/ML'],
@@ -83,7 +83,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'emotion',
     name: 'Deepiri Emotion',
-    tagline: 'AI-powered development environment with context-aware chat and Cyrex integrations.',
+    tagline: 'Desktop IDE and terminal agent for coding—streaming models, tool use, MCP support, and checkpoints with no backend required.',
     repo: 'Team-Deepiri/deepiri-emotion',
     installMode: 'both',
     tags: ['CLI', 'Desktop', 'HCI'],
@@ -114,7 +114,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'uqe',
     name: 'Universal Quantum Engine',
-    tagline: 'Research-ready quantum experimentation lab for simulation, algorithm reinvention, and hybrid quantum-classical AI.',
+    tagline: 'Python lab for simulating quantum circuits, experimenting with algorithms, and prototyping hybrid quantum–classical models.',
     repo: 'Team-Deepiri/deepiri-uqe',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML'],
@@ -138,7 +138,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'topolsea',
     name: 'Topolsea',
-    tagline: 'SIMD-accelerated GraphANN vector database.',
+    tagline: 'Rust vector engine for approximate nearest-neighbor search with HNSW and fractal indexes, plus a Python client for embeddings.',
     repo: 'Team-Deepiri/deepiri-topolsea',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML', 'Infrastructure'],
@@ -158,7 +158,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'renderflow',
     name: 'Renderflow Studio',
-    tagline: 'Creative rendering studio for real-time visual pipelines and media workflows.',
+    tagline: 'Native desktop studio for timeline editing, compositing, and Vulkan rendering, with an optional AI orchestrator alongside full manual control.',
     repo: 'Team-Deepiri/deepiri-renderflow-studio',
     installMode: 'both',
     tags: ['CLI', 'Desktop', 'Media'],
@@ -206,7 +206,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'zepgpu',
     name: 'ZepGPU',
-    tagline: 'GPU detection, scheduling, and acceleration utilities for Deepiri workloads.',
+    tagline: 'Serverless GPU framework that queues Python jobs, runs them in isolated containers, and exposes scheduling, pipelines, and live metrics.',
     repo: 'Team-Deepiri/deepiri-zepgpu',
     installMode: 'terminal',
     tags: ['CLI', 'Infrastructure'],
@@ -227,7 +227,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'mudspeed',
     name: 'Mudspeed',
-    tagline: 'Hybrid GPU emulator with Neural ODE acceleration, achieving 10-1000x speedup over cycle-accurate simulators.',
+    tagline: 'Accelerates GPU architecture simulation by blending cycle-accurate emulation with neural surrogates for faster interactive exploration.',
     repo: 'Team-Deepiri/deepiri-mudspeed',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML', 'Infrastructure'],
@@ -264,7 +264,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'fuselk',
     name: 'Fuselk',
-    tagline: 'JAX-accelerated tokamak simulator with hierarchical RL control.',
+    tagline: 'JAX tokamak simulator that models plasma behavior and trains control policies to manage ELMs, disruptions, and fuel breeding.',
     repo: 'Team-Deepiri/deepiri-fuselk',
     installMode: 'desktop',
     tags: ['Desktop', 'Platform'],
@@ -282,7 +282,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'aarflingo',
     name: 'Aarflingo',
-    tagline: 'Language intelligence toolkit for parsing, analysis, and linguistic pipelines.',
+    tagline: 'Forecasts canine intent from live webcam video, captures human feedback, and retrains models for studio and edge deployment.',
     repo: 'Team-Deepiri/deepiri-aarflingo',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML', 'Data'],
@@ -309,7 +309,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'memorymesh',
     name: 'MemoryMesh',
-    tagline: 'Distributed memory layer for long-context AI agents and RAG systems.',
+    tagline: 'Local-first memory store for agents with semantic recall, CLI and HTTP access, and optional encryption—no hosted service.',
     repo: 'Team-Deepiri/deepiri-memorymesh',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML', 'Infrastructure'],
@@ -322,7 +322,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'polylogue',
     name: 'Polylogue',
-    tagline: 'Filesystem-first shared LLM Streaming Journal Network (SJN).',
+    tagline: 'Filesystem journal that keeps multiple LLM sessions in sync through shared logs, context files, and paste-ready sync packs.',
     repo: 'Team-Deepiri/deepiri-polylogue',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML'],
@@ -335,7 +335,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'calliope',
     name: 'Calliope',
-    tagline: 'Local-first AI music studio stack with FastAPI backend, Vite React UI, PostgreSQL, and Ollama.',
+    tagline: 'Dockerized music studio that routes prompts to local or cloud models for composition, arrangement, and groove planning.',
     repo: 'Team-Deepiri/deepiri-calliope',
     installMode: 'desktop',
     tags: ['Desktop', 'AI/ML', 'HCI'],
@@ -359,7 +359,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'tombstone',
     name: 'Tombstone',
-    tagline: 'Post-training eval harness — vintage-language pipeline stages with local Ollama in Docker.',
+    tagline: 'Post-training evaluation harness that drives parallel benchmark runs against local Ollama through a vintage B-language pipeline.',
     repo: 'Team-Deepiri/deepiri-tombstone',
     installMode: 'terminal',
     tags: ['CLI', 'AI/ML', 'Infrastructure'],
@@ -382,7 +382,7 @@ export const toolsCatalog: ToolEntry[] = [
     slug: 'control-plane',
     name: 'Control Plane',
     tagline:
-      'Local lab stack for Cyrex, Synapse, speech, Kafka, Milvus, MLflow, Ollama, and the full gateway — not the cloud VPS portal (see deepiri-platform).',
+      'Local Docker monorepo for the full Deepiri dev stack—gateway, Cyrex, Synapse, Milvus, and team-scoped service catalogs. Use deepiri-platform for the cloud VPS.',
     repo: 'Team-Deepiri/deepiri-control-plane',
     installMode: 'terminal',
     tags: ['CLI', 'Platform', 'Infrastructure'],
@@ -413,7 +413,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'gpu-utils',
     name: 'GPU Utils Library',
-    tagline: 'CLI utilities for GPU health checks, profiling, and driver diagnostics.',
+    tagline: 'Detects NVIDIA, AMD, and Apple GPUs and outputs Docker build hints, health checks, and Ollama model-fit recommendations.',
     repo: 'Team-Deepiri/deepiri-gpu-utils',
     installMode: 'terminal',
     tags: ['CLI', 'Library', 'Infrastructure'],
@@ -426,7 +426,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'ollama-utils',
     name: 'Ollama Utils Library',
-    tagline: 'Utilities for managing Ollama models, wheels, and local inference stacks.',
+    tagline: 'Checks Ollama health, verifies installed models, and sizes model pulls against hardware detected by deepiri-gpu-utils.',
     repo: 'Team-Deepiri/deepiri-ollama-utils',
     installMode: 'terminal',
     tags: ['CLI', 'Library', 'AI/ML', 'Tools'],
@@ -449,7 +449,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'dataset-processor',
     name: 'Dataset Processor Library',
-    tagline: 'Preprocess, transform, and version datasets for ML pipelines.',
+    tagline: 'Cleans and deduplicates training text, flags data leakage, versions datasets, and builds manifests for ML pipelines.',
     repo: 'Team-Deepiri/deepiri-dataset-processor',
     installMode: 'terminal',
     tags: ['CLI', 'Library', 'Data', 'AI/ML'],
@@ -462,7 +462,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'training-orchestrator',
     name: 'Training Orchestrator Library',
-    tagline: 'Orchestrate distributed ML training jobs across clusters and GPUs.',
+    tagline: 'Adds reproducible seeds, experiment tracking, and a callback training loop that works with any ML framework you plug in.',
     repo: 'Team-Deepiri/deepiri-training-orchestrator',
     installMode: 'terminal',
     tags: ['CLI', 'Library', 'AI/ML', 'Infrastructure'],
@@ -475,7 +475,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'prismpipe',
     name: 'Prismpipe Library',
-    tagline: 'Capability-routed, self-improving API computation pipelines.',
+    tagline: 'Routes API requests through composable nodes and reuses prior computations so identical work is not repeated.',
     repo: 'Team-Deepiri/deepiri-prismpipe',
     installMode: 'terminal',
     tags: ['CLI', 'Library', 'Platform', 'Infrastructure'],
@@ -489,7 +489,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'agent-guardrails',
     name: 'Agent Guardrails Library',
-    tagline: 'Safety and policy guardrails for autonomous AI agent behavior.',
+    tagline: 'Validates agent prompts and outputs for injection, PII, and policy violations before models act on them.',
     repo: 'Team-Deepiri/diri-agent-guardrails',
     installMode: 'terminal',
     tags: ['CLI', 'Library', 'Ethics', 'AI/ML'],
@@ -502,7 +502,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'wooven',
     name: 'Wooven Credentials Helper',
-    tagline: 'Credentials manager for Deepiri services and developer workflows.',
+    tagline: 'Stores Git credentials in your OS keyring and picks SSH or HTTPS when cloning across machines.',
     repo: 'Team-Deepiri/deepiri-wooven',
     installMode: 'terminal',
     productKind: 'helper',
@@ -516,8 +516,8 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'helox',
     name: 'Helox',
-    tagline: 'Model fine-tuning and model versioning framework.',
-    repo: 'Team-Deepiri/deepiri-platform',
+    tagline: 'Training-side ML factory for fine-tuning, dataset versioning, and experiment tracking—exports models for Cyrex to serve.',
+    repo: 'Team-Deepiri/diri-helox',
     installMode: 'terminal',
     tags: ['CLI', 'Platform', 'AI/ML'],
     researchLink: true,
@@ -537,7 +537,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'agent-toolbox',
     name: 'Agent Toolbox',
-    tagline: 'Toolkit for building, testing, and deploying Deepiri AI agents.',
+    tagline: 'Typed agent tools for HTTP, sandboxed files, calendars, and CRM APIs—ready to wire into Cyrex or other runtimes.',
     repo: 'Team-Deepiri/diri-agent-toolbox',
     installMode: 'terminal',
     tags: ['CLI', 'Tools'],
@@ -550,7 +550,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'egottol',
     name: 'Egottol',
-    tagline: 'Analog SPICE and VHDL simulation lab with GPU-accelerated analysis.',
+    tagline: 'Mixed-signal lab combining SPICE analog solvers, event-driven digital logic, VHDL blocks, and GPU-accelerated sweeps.',
     repo: 'Team-Deepiri/deepiri-egottol',
     installMode: 'both',
     tags: ['CLI', 'Desktop', 'HCI'],
@@ -594,7 +594,7 @@ export const toolsCatalog: ToolEntry[] = [
   {
     slug: 'voxier',
     name: 'Voxier',
-    tagline: 'Godot-based game project by Deepiri.',
+    tagline: 'Godot toolkit for building arcade games—includes Fox Rocket, terminal-style pilots, and shader-driven sector backgrounds.',
     repo: 'Team-Deepiri/deepiri-voxier',
     installMode: 'desktop',
     tags: ['Desktop', 'Media', 'HCI'],
