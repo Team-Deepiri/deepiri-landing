@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import TerminalInstallBlock from '../components/tools/TerminalInstallBlock';
 import DesktopDownloadBlock from '../components/tools/DesktopDownloadBlock';
 import PackageDownloadBlock from '../components/tools/PackageDownloadBlock';
-import { getToolBySlug, installModeLabel } from '../data/toolsCatalog';
+import { getToolBySlug, toolBadgeLabel } from '../data/toolsCatalog';
 import { categoryColors, getTagCategory, getToolVisual, statusLabel } from '../data/toolVisuals';
 import './ToolInstallPage.css';
 
@@ -63,7 +63,7 @@ function ToolInstallPage() {
                     {statusLabel(visual.status)}
                   </span>
                 )}
-                <span className="tool-hero-mode">{installModeLabel(tool.installMode)}</span>
+                <span className="tool-hero-mode">{toolBadgeLabel(tool)}</span>
               </div>
             </div>
             <p className="tool-hero-tagline">{tool.tagline}</p>

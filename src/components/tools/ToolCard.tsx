@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState, type CSSProperties, type MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import type { ToolEntry } from '../../data/toolsCatalog';
-import { installModeLabel } from '../../data/toolsCatalog';
+import { toolBadgeLabel } from '../../data/toolsCatalog';
 import {
   categoryColors,
   getTagCategory,
@@ -80,7 +80,7 @@ function ToolCard({ tool, index = 0 }: ToolCardProps) {
               {statusLabel(visual.status)}
             </span>
           )}
-          <span className="tool-badge tool-badge-mode">{installModeLabel(tool.installMode)}</span>
+          <span className="tool-badge tool-badge-mode">{toolBadgeLabel(tool)}</span>
         </div>
       </div>
 
