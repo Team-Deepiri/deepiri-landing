@@ -128,7 +128,7 @@ Jason: you own the **landing pages** for all tools below. For terminal tools, mo
 | # | Tool | Slug | Mode | GitHub repo |
 |---|------|------|------|-------------|
 | 1 | Cyrex | `cyrex` | Terminal | https://github.com/Team-Deepiri/diri-cyrex |
-| 2 | Helox | `helox` | Terminal | https://github.com/Team-Deepiri/deepiri-platform (submodule: `diri-helox`) |
+| 2 | Helox | `helox` | Terminal | https://github.com/Team-Deepiri/deepiri-control-plane (submodule: `diri-helox`) |
 | 3 | Agent Toolbox | `agent-toolbox` | Terminal | https://github.com/Team-Deepiri/diri-agent-toolbox |
 | 4 | Training Orchestrator | `training-orchestrator` | Terminal | https://github.com/Team-Deepiri/deepiri-training-orchestrator |
 | 5 | Dataset Processor | `dataset-processor` | Terminal | https://github.com/Team-Deepiri/deepiri-dataset-processor |
@@ -151,7 +151,8 @@ Jason: you own the **landing pages** for all tools below. For terminal tools, mo
 | 22 | Tombstone | `tombstone` | Terminal | https://github.com/Team-Deepiri/deepiri-tombstone |
 | 23 | Voxier | `voxier` | **Desktop only** | https://github.com/Team-Deepiri/deepiri-voxier |
 | 24 | Ollama Utils | `ollama-utils` | Terminal + packaged file | https://github.com/Team-Deepiri/deepiri-ollama-utils |
-| 25 | Deepiri Platform | `platform` | Terminal (Docker) | https://github.com/Team-Deepiri/deepiri-platform |
+| 25 | Deepiri Control Plane (local/lab) | `control-plane` | Terminal (Docker) | https://github.com/Team-Deepiri/deepiri-control-plane |
+| 26 | Deepiri Platform (cloud VPS portal) | `platform` | Terminal (Docker) | https://github.com/Team-Deepiri/deepiri-platform |
 
 **Mode key:** Terminal = CLI/curl install section | Desktop = clickable installer buttons | Both = both sections on the page.
 
@@ -221,9 +222,10 @@ For these tools, **do not add `install.sh`**. Instead, **create the landing page
 
 | Tool | Slug | Repo | Commands to show in digital terminal |
 |------|------|------|--------------------------------------|
-| Deepiri Platform | `platform` | https://github.com/Team-Deepiri/deepiri-platform | `git clone` → `git submodule update --init --recursive` → `docker compose -f docker-compose.dev.yml up -d` |
-| Cyrex | `cyrex` | https://github.com/Team-Deepiri/diri-cyrex | Clone platform or cyrex → `docker compose` up AI stack, or `poetry install` for local dev |
-| Helox | `helox` | https://github.com/Team-Deepiri/deepiri-platform (`diri-helox`) | `git submodule update --init diri-helox` → `cd diri-helox` → `poetry install` |
+| Deepiri Control Plane (local/lab) | `control-plane` | https://github.com/Team-Deepiri/deepiri-control-plane | `git clone` → `bash setup-deepiri-dev.sh` → `docker compose -f docker-compose.dev.yml up -d` |
+| Deepiri Platform (cloud VPS) | `platform` | https://github.com/Team-Deepiri/deepiri-platform | `git clone` → `docker compose -f docker-compose.yml up -d` |
+| Cyrex | `cyrex` | https://github.com/Team-Deepiri/diri-cyrex | Clone **deepiri-control-plane** or cyrex → `docker compose` up AI stack, or `poetry install` for local dev |
+| Helox | `helox` | https://github.com/Team-Deepiri/deepiri-control-plane (`diri-helox`) | `git submodule update --init diri-helox` → `cd diri-helox` → `poetry install` |
 | Mudspeed | `mudspeed` | https://github.com/Team-Deepiri/deepiri-mudspeed | `git clone` → `bash .setup.sh` → `bash .train.sh` |
 | Topolsea | `topolsea` | https://github.com/Team-Deepiri/deepiri-topolsea | `git clone` → `cargo build --release` → `poetry install` |
 | UQE | `uqe` | https://github.com/Team-Deepiri/deepiri-uqe | `git clone` → `poetry install` (or `pip install -r requirements.txt`) |
@@ -324,7 +326,8 @@ Optional v1.5: build script that calls `api.github.com/repos/.../releases/latest
 |-------|-----------------|
 | **ZepGPU** | Terminal/Docker only — no desktop installer or Phase 3 release pipeline in v1 |
 | **Calliope desktop** | **Option C hybrid** — Tauri shell + setup wizard + Docker/Ollama prerequisites; public `ghcr.io/team-deepiri/calliope-api`.
-| **Cyrex / Helox / Platform** | Platform services — pages lead with Docker Compose from `deepiri-platform`, not a curl one-liner or single binary |
+| **Cyrex / Helox / Control plane** | Local/lab stack — pages lead with Docker Compose from `deepiri-control-plane` (`docker-compose.dev.yml` / `setup-deepiri-dev.sh`), not a curl one-liner |
+| **Cloud portal** | VPS stack — `deepiri-platform` `docker-compose.yml` only |
 | **Ollama Utils** | Package as wheel/zip on GitHub Releases; landing links direct download + pip/git fallback |
 | **Topolsea** | Landing shows `cargo` + `poetry` commands; no install.sh in v1 |
 | **PyPI** | Phase 2A curl scripts may wrap pip; Phase 2B shows raw README commands |
