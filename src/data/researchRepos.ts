@@ -9,11 +9,11 @@ export interface ResearchRepo {
 export const researchRepos: ResearchRepo[] = [
   {
     iconKey: 'platform',
-    name: 'Deepiri Platform',
-    githubUrl: 'https://github.com/Team-Deepiri/deepiri-platform',
+    name: 'Deepiri Control Plane',
+    githubUrl: 'https://github.com/Team-Deepiri/deepiri-control-plane',
     description:
-      'Deepiri Platform is our open source command center: the foundational stack where we architect reusable tools, developer frameworks, and production-grade infrastructure. It is the launchpad that accelerates every major Deepiri initiative, including Cyrex and Helox.',
-    toolSlug: 'platform',
+      'Deepiri Control Plane is the local lab builder stack — Cyrex, Synapse, speech, Kafka, Milvus, MLflow, Ollama, and the full gateway. It has its own decoupled auth, external bridge, and frontend. For the cloud VPS portal, see deepiri-platform.',
+    toolSlug: 'control-plane',
   },
   {
     iconKey: 'cyrex',
@@ -43,7 +43,7 @@ export const researchRepos: ResearchRepo[] = [
     name: 'Deepiri Universal Quantum Engine',
     githubUrl: 'https://github.com/Team-Deepiri/deepiri-uqe',
     description:
-      'Universal Quantum Engine (UQE) is our quantum experimentation lab built for serious AI-forward research. It combines a pure-NumPy statevector simulator, a quantum bridge for PyTorch workflows, and interactive 3D visualizations to rapidly prototype next-gen computational ideas.',
+      'Universal Quantum Engine is a research lab built around the Deepiri Quantum Engine—QUASAR compiles circuits, DQP executes them natively, and MAPA bridges connect quantum workloads into PyTorch with optional IBM or IonQ shadow export.',
     toolSlug: 'uqe',
   },
   {

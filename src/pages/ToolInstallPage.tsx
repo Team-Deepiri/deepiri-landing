@@ -1,11 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, type CSSProperties } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TerminalInstallBlock from '../components/tools/TerminalInstallBlock';
 import DesktopDownloadBlock from '../components/tools/DesktopDownloadBlock';
 import PackageDownloadBlock from '../components/tools/PackageDownloadBlock';
-import { getToolBySlug, installModeLabel } from '../data/toolsCatalog';
+import { getToolBySlug, toolBadgeLabel } from '../data/toolsCatalog';
+import { categoryColors, getTagCategory, getToolVisual, statusLabel } from '../data/toolVisuals';
 import './ToolInstallPage.css';
 
 function ToolInstallPage() {
@@ -42,6 +43,7 @@ function ToolInstallPage() {
   const showDesktop =
     tool.desktop && (tool.installMode === 'desktop' || tool.installMode === 'both');
   const showPackage = Boolean(tool.package);
+  const visual = getToolVisual(tool.slug);
 
   return (
     <div className="app">
@@ -55,15 +57,36 @@ function ToolInstallPage() {
           <div className="tool-hero">
             <div className="tool-hero-header">
               <h1 className="tool-hero-title">{tool.name}</h1>
-              <span className="tool-hero-mode">{installModeLabel(tool.installMode)}</span>
+              <div className="tool-hero-badges">
+                {visual.status !== 'ready' && (
+                  <span className={`tool-hero-status tool-hero-status--${visual.status}`}>
+                    {statusLabel(visual.status)}
+                  </span>
+                )}
+                <span className="tool-hero-mode">{toolBadgeLabel(tool)}</span>
+              </div>
             </div>
             <p className="tool-hero-tagline">{tool.tagline}</p>
             <div className="tool-hero-tags">
-              {tool.tags.map((tag) => (
-                <span key={tag} className="tool-hero-tag">
-                  {tag}
-                </span>
-              ))}
+              {tool.tags.map((tag) => {
+                const tagCat = getTagCategory(tag);
+                const tagColors = categoryColors[tagCat];
+                return (
+                  <span
+                    key={tag}
+                    className="tool-hero-tag"
+                    style={
+                      {
+                        '--tag-bg': tagColors.bg,
+                        '--tag-border': tagColors.border,
+                        '--tag-text': tagColors.text,
+                      } as CSSProperties
+                    }
+                  >
+                    {tag}
+                  </span>
+                );
+              })}
             </div>
             <a
               href={githubUrl}
